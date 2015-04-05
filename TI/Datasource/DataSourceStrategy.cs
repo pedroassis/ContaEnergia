@@ -12,7 +12,7 @@ namespace SuperTrunfo
 		{
 			type = typeof(T);
 			String name = type.Name;
-			dataSource = new FileDataSource(new DirectoryInfo(Directory.GetCurrentDirectory () + Path.DirectorySeparatorChar + "data"), "Id");
+			dataSource = new FileDataSource(new DirectoryInfo(Directory.GetCurrentDirectory () + Path.DirectorySeparatorChar + "data"  + Path.DirectorySeparatorChar + name), "Id");
 
 			cachedDataSource = dataSource.getDataSource<T>();
 		}
@@ -28,7 +28,7 @@ namespace SuperTrunfo
 		}
 		
 		public T getById(Object id){
-			FieldInfo fieldId = type.GetField("id");
+			PropertyInfo fieldId = type.GetProperty("Id");
 			
 			return cachedDataSource.Find((listObject)=>{
 				return fieldId.GetValue(listObject).Equals(id);
@@ -37,7 +37,7 @@ namespace SuperTrunfo
 		}
 
         public List<T> find(String propertyName, Object valueField){
-            FieldInfo fieldId = type.GetField("id");
+			PropertyInfo fieldId = type.GetProperty("Id");
 			return cachedDataSource.FindAll((listObject)=>{
                 return fieldId.GetValue(listObject).Equals(valueField);
 			});
@@ -45,7 +45,7 @@ namespace SuperTrunfo
 		
 		public T findOne(String propertyName, Object valueField){
 			return cachedDataSource.Find((listObject)=>{				
-				return type.GetField(propertyName).GetValue(listObject).Equals(valueField);
+				return type.GetProperty(propertyName).GetValue(listObject).Equals(valueField);
 			});
 		}
 		
