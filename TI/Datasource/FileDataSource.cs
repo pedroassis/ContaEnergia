@@ -10,7 +10,6 @@ namespace SuperTrunfo
         public DirectoryInfo folder;
 		
 		private String fileNameProperty;
-		
 		private String nameProperty;
 
         public FileDataSource(DirectoryInfo folder, String fileNameProperty)
@@ -29,7 +28,7 @@ namespace SuperTrunfo
 
             List<T> dataSource = new List<T>();
 
-            DirectoryInfo typeFolder = new DirectoryInfo(folder.FullName + type.Name);
+			DirectoryInfo typeFolder = new DirectoryInfo(folder.FullName + Path.DirectorySeparatorChar + type.Name);
 
             if (!typeFolder.Exists) {
                 typeFolder.Create();
@@ -40,7 +39,7 @@ namespace SuperTrunfo
             foreach (FileInfo file in files)
             {
 
-                using (StreamReader reader = new StreamReader(folder.FullName + "\\" + type.Name + Path.DirectorySeparatorChar + file.Name))
+				using (StreamReader reader = new StreamReader(folder.FullName + Path.DirectorySeparatorChar + type.Name + Path.DirectorySeparatorChar + file.Name))
                 {
 
                     T dataSourceObject = (T) Activator.CreateInstance(type);
@@ -52,7 +51,7 @@ namespace SuperTrunfo
 
                         Object value = getValue(type, props[currentProperty], line);
 
-                        type.GetField(props[currentProperty]).SetValue(dataSourceObject, value);
+                        type.GetProperty(props[currentProperty]).SetValue(dataSourceObject, value);
                         currentProperty++;
                     }
 
@@ -64,7 +63,7 @@ namespace SuperTrunfo
         }
 
         private Object getValue(Type type, String name, Object value){
-            Type fieldType = type.GetField(name).FieldType;
+			Type fieldType = type.GetProperty(name).PropertyType;
             if (fieldType == typeof(String))
             {
                 return value;
@@ -82,10 +81,10 @@ namespace SuperTrunfo
             List<String> props = readProperties(type);
 			
 			foreach(T obj in data){
-				using (TextWriter writer = new StreamWriter(folder.FullName + type.Name + Path.DirectorySeparatorChar + getFileName(obj), true))
+				using (TextWriter writer = new StreamWriter(folder.FullName + Path.DirectorySeparatorChar + type.Name + Path.DirectorySeparatorChar + getFileName(obj), true))
                 {
 					props.ForEach((prop) => {
-						String line = type.GetField(prop).GetValue (obj).ToString();
+						String line = type.GetProperty(prop).GetValue (obj).ToString();
 						writer.WriteLine(line);
 					});
                 }
@@ -117,7 +116,7 @@ namespace SuperTrunfo
 			String nameValue = null;
 			
 			if(nameProperty == null && fileNameProperty != null){
-				nameValue = type.GetField(fileNameProperty).GetValue(obj).ToString();
+				nameValue = type.GetProperty(fileNameProperty).GetValue(obj).ToString();
 			}
 			
 			return nameValue == null ? obj.GetHashCode().ToString() : nameValue;
@@ -125,7 +124,7 @@ namespace SuperTrunfo
 		
 		private void deleteFiles(Type type){
 
-            FileInfo[] files = new DirectoryInfo(folder.FullName + type.Name).GetFiles();
+			FileInfo[] files = new DirectoryInfo(folder.FullName + Path.DirectorySeparatorChar + type.Name).GetFiles();
 			
             foreach (FileInfo file in files){
 				file.Delete();
@@ -135,9 +134,9 @@ namespace SuperTrunfo
         private List<String> readProperties(Type type) {
             List<String> props = new List<string>();
 
-            FieldInfo[] fields = type.GetFields();
+            PropertyInfo[] fields = type.GetProperties();
          
-            foreach(FieldInfo field in fields){
+			foreach(PropertyInfo field in fields){
                 props.Add(field.Name);
             }
             return props;
