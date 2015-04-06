@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using SuperTrunfo;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
 namespace TI
 {
 	class MainClass
@@ -8,7 +12,10 @@ namespace TI
 		public static void Main(){
 			DataSourceStrategy<Pessoa> data = new DataSourceStrategy<Pessoa> ();
 
-			List<Pessoa> p = new List<Pessoa> ();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new TI.View.splash());
+			/*List<Pessoa> p = new List<Pessoa> ();
 
 			p.Add (new Pessoa (1, "aa", "12345678", "FISICA"));
 			p.Add (new Pessoa (12, "ddd", "3", "FISICA"));
@@ -35,8 +42,11 @@ namespace TI
 				Console.WriteLine(x.Consumidor);
 				Console.WriteLine(cs.getConsumo(x));
 				Console.WriteLine(cs.getTotalSemImposto(x));
-				Console.WriteLine(cs.getTotal(x));
+                Console.WriteLine(cs.getTotal(x));
+                Console.WriteLine();
 			});
-		}
+            */
+            
+        }
 	}
 }

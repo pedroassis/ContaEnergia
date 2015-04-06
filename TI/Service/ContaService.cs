@@ -37,6 +37,11 @@ namespace TI
 		public double getTarifa(Conta conta){
 			return pessoaStrategy.getById(conta.Consumidor).Tipo == "COMERCIAL" ? TARIFA_COMERCIAL : TARIFA_RESIDECIAL;
 		}
-	}
+
+        internal string getTotal()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
 

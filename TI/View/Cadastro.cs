@@ -4,11 +4,13 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using TI.View;
+using SuperTrunfo;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace agenda
+namespace TI
 {
     public partial class Cadastro : Form
     {
@@ -17,11 +19,18 @@ namespace agenda
             InitializeComponent();
         }
 
+        private Strategy<Pessoa> pessoaDataSource = new DataSourceStrategy<Pessoa>();
         private void button1_Click(object sender, EventArgs e)
         {
-            List<string> lista = new List<string>();
-            lista.Add(txtNome.Text);
-            
+            Pessoa p = new Pessoa();
+            List<Pessoa> lista = pessoaDataSource.getAll();
+            p.Id = lista.Count == 0 ? 1 : lista.Last().Id + 1;
+            p.Nome = txtNome.Text;
+            p.Documento = rbFisica.Checked ? txtCPF.Text : txtCNPJ.Text;
+            p.Tipo = rbFisica.Checked ? "FÍSICA" : "COMERCIAL";
+
+            pessoaDataSource.add(p);
+            button2_Click(null, null);
             
         }
 
@@ -37,15 +46,27 @@ namespace agenda
 
         private void button2_Click(object sender, EventArgs e)
         {
-            txtNome.Clear();   
-            
-            
-        }
+            txtNome.Clear();
+            txtCPF.Clear();
+            txtCNPJ.Clear();
+            txtLogradouro.Clear();
+            txtNumero.Clear();
+            txtBairro.Clear();
+            txtCity.Clear();
+            txtCEP.Clear();
 
+        }
+        
         private void button4_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+
+            
+     
+
+            
+            
         }
+        
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
@@ -62,8 +83,12 @@ namespace agenda
             txtCPF.Clear();
             txtCNPJ.Show();
             txtCPF.Hide();
-            labelData.Text= "Data de Estabelecimento";
+            txtSexo.Hide();
+            comboSexo.Hide();
             lblTipoDoc.Text = "CNPJ";
+            
+
+            
         }
 
         private void rbFisica_CheckedChanged(object sender, EventArgs e)
@@ -73,91 +98,26 @@ namespace agenda
             txtCNPJ.Hide();
             txtCNPJ.Clear();
             txtCPF.Show();
-            labelData.Text = "Data de Nascimento";
+            txtSexo.Show();
+            comboSexo.Show();
             lblTipoDoc.Text = "CPF";
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            txtTel2.Show();
-            lblTel2.Show();
-            pictureBox2.Show();
-            pictureBox6.Show();
-            txtTel2.Focus();
+            
 
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            lblTel3.Show();
-            txtTel3.Show();
-            pictureBox3.Show();
-            pictureBox7.Show();
-            txtTel3.Focus();
-        }
-
-        private void pictureBox3_Click(object sender, EventArgs e)
-        {
-            lblTel4.Show();
-            txtTel4.Show();
-            pictureBox4.Show();
-            pictureBox8.Show();
-            txtTel4.Focus();
-        }
-
-        private void pictureBox4_Click(object sender, EventArgs e)
-        {
-            lblTel5.Show();
-            txtTel5.Show();
-            pictureBox9.Show();
-            txtTel5.Focus();
-        }
-
-        private void pictureBox9_Click(object sender, EventArgs e)
-        {
-            txtTel5.Clear();
-            txtTel5.Hide();
-            lblTel5.Hide();
-            pictureBox9.Hide();
-            txtTel4.Focus();
-        }
-
-        private void pictureBox8_Click(object sender, EventArgs e)
-        {
-            txtTel4.Clear();
-            lblTel4.Hide();
-            txtTel4.Hide();
-            pictureBox8.Hide();
-            pictureBox4.Hide();
-            txtTel3.Focus();
-        }
-
-        private void pictureBox7_Click(object sender, EventArgs e)
-        {
-            txtTel2.Focus();
-            txtTel3.Clear();
-            lblTel3.Hide();
-            txtTel3.Hide();
-            pictureBox7.Hide();
-            pictureBox3.Hide();
-        }
-
-        private void pictureBox6_Click(object sender, EventArgs e)
-        {
-            txtTel1.Focus();
-            txtTel2.Clear();
-            lblTel2.Hide();
-            txtTel2.Hide();
-            pictureBox6.Hide();
-            pictureBox2.Hide();
             
         }
 
-        private void pictureBox5_Click(object sender, EventArgs e)
-        {
-            txtTel1.Clear();
-            txtTel1.Focus();
-        }
+        
+
+        
+
 
         private void label5_Click(object sender, EventArgs e)
         {
@@ -167,6 +127,18 @@ namespace agenda
         private void comboUF_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void Cadastro_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            MenuChooser menu = new MenuChooser();
+            this.Close();
+            menu.Show();
         }
     }
 }

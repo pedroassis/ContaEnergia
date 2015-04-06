@@ -18,6 +18,10 @@ namespace SuperTrunfo
         Boolean delete(T id);
 		
 		Boolean deleteOne(String propertyName, Object valueField);
+
+        Boolean addAll(List<T> list);
+
+        Boolean add(T item);
 	}
 }
 

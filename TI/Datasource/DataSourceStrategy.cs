@@ -37,7 +37,7 @@ namespace SuperTrunfo
 		}
 
         public List<T> find(String propertyName, Object valueField){
-			PropertyInfo fieldId = type.GetProperty("Id");
+			PropertyInfo fieldId = type.GetProperty(propertyName);
 			return cachedDataSource.FindAll((listObject)=>{
                 return fieldId.GetValue(listObject).Equals(valueField);
 			});
@@ -69,6 +69,15 @@ namespace SuperTrunfo
 		public Boolean addAll(List<T> list){
 			return dataSource.setDataSource (list);
 		}
+
+        public Boolean add(T item)
+        {
+            List<T> list = this.getAll();
+            list.Add(item);
+            return this.addAll(list);
+           
+        }
+
 	}
 }
 
