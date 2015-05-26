@@ -3,7 +3,7 @@ using SuperTrunfo;
 
 namespace TI
 {
-	public class ContaService : IContaService
+	public class ContaEnergiaService : IContaService
 	{
 		private static readonly double CONTRIBUICAO 		= 9.25d; 
 		private static readonly double IMPOSTO_RESIDECIAL 	= 0.3d; 
@@ -13,7 +13,7 @@ namespace TI
 
 		private readonly Strategy<Pessoa> pessoaStrategy;
 
-		public ContaService(){
+		public ContaEnergiaService(){
 			pessoaStrategy = new DataSourceStrategy<Pessoa> ();
 		}
 
