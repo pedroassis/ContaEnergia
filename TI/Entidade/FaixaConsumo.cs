@@ -14,5 +14,6 @@ namespace TI.Entidade
         public Double   Esgoto          { get; set; }
         public Int32    AguaFixo        { get; set; }
         public Int32    EsgotoFixo      { get; set; }
+        public String   Tipo            { get; set; }
     }
 }
