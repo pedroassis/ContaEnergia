@@ -17,31 +17,27 @@ namespace TI
 			pessoaStrategy = new DataSourceStrategy<Pessoa> ();
 		}
 
-		public double getTotal(Conta conta){
+		public override double getTotal(Conta conta){
 			return getTotalSemImposto (conta) + getImposto (conta);
 		}
 
-		public double getTotalSemImposto(Conta conta){
+		public override double getTotalSemImposto(Conta conta){
 			double total = getConsumo(conta);
-			return total * getTarifa(conta) + CONTRIBUICAO;
+			return total * getTarifa<double>(conta) + CONTRIBUICAO;
 		}
 
-		public double getConsumo(Conta conta){
+		public override double getConsumo(Conta conta){
 			return conta.LeituraAtual - conta.LeituraAnterior;
 		}
 
-		public double getImposto(Conta conta){
+		public override double getImposto(Conta conta){
 			return pessoaStrategy.getById(conta.Consumidor).Tipo == "COMERCIAL" ? IMPOSTO_COMERCIAL : IMPOSTO_RESIDECIAL;
 		}
 
-		public double getTarifa(Conta conta){
+		public override Double getTarifa(Conta conta){
 			return pessoaStrategy.getById(conta.Consumidor).Tipo == "COMERCIAL" ? TARIFA_COMERCIAL : TARIFA_RESIDECIAL;
 		}
 
-        internal string getTotal()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
 
