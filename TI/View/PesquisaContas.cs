@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TI.Service;
 
 namespace TI.View
 {
@@ -83,7 +84,7 @@ namespace TI.View
 
         }
 
-        ContaService contaService = new ContaService();
+        ContaEnergiaService contaService = new ContaEnergiaService();
         private Strategy<Pessoa> pessoaDataSource = new DataSourceStrategy<Pessoa>();
         private Strategy<Conta> ContaDataSource = new DataSourceStrategy<Conta>();
         private void pictureBox1_Click(object sender, EventArgs e)

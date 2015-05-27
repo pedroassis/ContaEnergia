@@ -1,7 +1,9 @@
 ﻿using System;
 using SuperTrunfo;
+using System.Collections.Generic;
+using TI.Entidade;
 
-namespace TI
+namespace TI.Service
 {
 	public class ContaEnergiaService : IContaService
 	{
@@ -17,25 +19,26 @@ namespace TI
 			pessoaStrategy = new DataSourceStrategy<Pessoa> ();
 		}
 
-		public override double getTotal(Conta conta){
+		public double getTotal(Conta conta){
 			return getTotalSemImposto (conta) + getImposto (conta);
 		}
 
-		public override double getTotalSemImposto(Conta conta){
+		public double getTotalSemImposto(Conta conta){
 			double total = getConsumo(conta);
-			return total * getTarifa<double>(conta) + CONTRIBUICAO;
+			return total * getTarifa(conta) + CONTRIBUICAO;
 		}
 
-		public override double getConsumo(Conta conta){
+		public double getConsumo(Conta conta){
 			return conta.LeituraAtual - conta.LeituraAnterior;
 		}
 
-		public override double getImposto(Conta conta){
+		public double getImposto(Conta conta){
 			return pessoaStrategy.getById(conta.Consumidor).Tipo == "COMERCIAL" ? IMPOSTO_COMERCIAL : IMPOSTO_RESIDECIAL;
 		}
 
-		public override Double getTarifa(Conta conta){
-			return pessoaStrategy.getById(conta.Consumidor).Tipo == "COMERCIAL" ? TARIFA_COMERCIAL : TARIFA_RESIDECIAL;
+		public double getTarifa(Conta conta){
+            Pessoa consumidor = pessoaStrategy.getById(conta.Consumidor);
+            return consumidor.Tipo == "COMERCIAL" ? TARIFA_COMERCIAL : TARIFA_RESIDECIAL;
 		}
 
     }

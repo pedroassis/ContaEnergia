@@ -12,18 +12,26 @@ namespace TI.Service
     class ContaAguaService : IContaService
     {
         private static readonly Strategy<Pessoa> pessoaStrategy = new DataSourceStrategy<Pessoa>();
-        private static readonly FaixaConsumoService consumoService = new FaixaConsumoService();
+        private static readonly FaixaConsumoService faixaConsumoService = new FaixaConsumoService();
 
         private static readonly double COFINS = 3d;
 
         public double getTotal(Conta conta)
         {
-            throw new NotImplementedException();
+            return getTotalSemImposto(conta) + getImposto(conta);
         }
 
         public double getTotalSemImposto(Conta conta)
         {
-            throw new NotImplementedException();
+            double consumo = getConsumo(conta);
+
+            String tipoPessoa = pessoaStrategy.getById(conta.Consumidor).Tipo;
+
+            return faixaConsumoService.getAll()
+
+                .Where(faixa => consumo >= faixa.Minimo && faixa.TipoConta == conta.TipoConta && faixa.TipoPessoa == tipoPessoa)
+
+                .Sum(faixa => faixaConsumoService.getTotal(consumo, faixa));
         }
 
         public double getConsumo(Conta conta)
@@ -36,14 +44,5 @@ namespace TI.Service
             return COFINS;
         }
 
-        public double getTarifa(Conta conta)
-        {
-            double consumo = getConsumo(conta);
-
-            return consumoService.getAll().Where(c => {
-                return c.Maximo <= consumo; 
-            })
-            .Sum(c => consumoService.getTotal(consumo, c));
-        }
     }
 }

@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
+using TI.Entidade;
 
-namespace TI
+namespace TI.Service
 {
 	public interface IContaService
 	{
@@ -12,7 +14,6 @@ namespace TI
 
 		double getImposto(Conta conta);
 
-		double getTarifa(Conta conta);
 	}
 }
 
