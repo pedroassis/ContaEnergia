@@ -66,8 +66,19 @@ namespace TI.View
         private Strategy<Conta> ContaDataSource = new DataSourceStrategy<Conta>();
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            Pessoa pessoa = pessoaDataSource.getById(int.Parse(id.Text));
-            if(pessoa !=null){
+            Pessoa pessoa;
+
+            try
+            {
+                pessoa = pessoaDataSource.getById(int.Parse(id.Text));
+            }
+            catch (Exception)
+            {
+                return;
+            }
+
+            if (pessoa != null && pessoa.Id != null)
+            {
                 conta.Consumidor = pessoa.Id;
                 txtNome.Text = pessoa.Nome;
                 txtTipo.Text = pessoa.Tipo;
@@ -121,6 +132,7 @@ namespace TI.View
             consumoAnterior.Text = "";
             consumoAtual.Text = "";
             id.Text = "";
+            id.Focus();
         }
     }
 }
