@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TI.Service;
+using System.IO;
+
 
 namespace TI.View
 {
@@ -84,9 +86,12 @@ namespace TI.View
 
         }
 
-        ContaEnergiaService contaService = new ContaEnergiaService();
+
+        
+        IContaService contaService = new ContaAguaService();
         private Strategy<Pessoa> pessoaDataSource = new DataSourceStrategy<Pessoa>();
         private Strategy<Conta> ContaDataSource = new DataSourceStrategy<Conta>();
+        private CSVImport importer = new CSVImport();
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
@@ -124,7 +129,7 @@ namespace TI.View
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            lancarValores valores = new lancarValores();
+            LancarValores valores = new LancarValores();
             valores.Show();
             this.Close();
         }
@@ -135,6 +140,49 @@ namespace TI.View
             cadastro.Show();
             this.Close();
         }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
+        {
+            
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+            
+           // openFileDialog1.Filter = "TXT Files|*.txt";
+            openFileDialog1.Title = "Select a Cursor File";
+            openFileDialog1.ShowDialog();
+
+            List<Func<string, Conta, object>> funcoes = new List<Func<string,Conta,object>>();
+
+            funcoes.Add((celula, conta) => "agua" == celula ? TipoConta.AGUA : TipoConta.ENERGIA);
+
+            funcoes.Add((celula, conta) => {
+                Pessoa pessoa = new Pessoa();
+                pessoa.Id = ++i;
+                if (celula.Contains("/"))
+                {                    
+                    pessoa.Documento = celula;
+                    pessoa.Tipo = "JURIDICA";                  
+                }
+                else
+                {
+                    pessoa.Documento = celula;
+                    pessoa.Tipo = "FISICA";
+                }
+                pessoaDataSource.add(pessoa);
+                return pessoa.Id;
+            });
+            importer.Import<Conta>(openFileDialog1.FileName, funcoes, new string[] { "TipoConta", "Consumidor", "Data", "LeituraAnterior", "LeituraAtual" });
+            
+        }
+
+        int i = 9999;
     }
 }
 ;
