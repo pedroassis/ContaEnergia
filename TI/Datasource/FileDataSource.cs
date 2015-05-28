@@ -84,7 +84,8 @@ namespace SuperTrunfo
 				using (TextWriter writer = new StreamWriter(folder.FullName + Path.DirectorySeparatorChar + type.Name + Path.DirectorySeparatorChar + getFileName(obj), true))
                 {
 					props.ForEach((prop) => {
-						String line = type.GetProperty(prop).GetValue (obj).ToString();
+                        Object value = type.GetProperty(prop).GetValue (obj);
+						String line = value == null ? "" : value.ToString();
 						writer.WriteLine(line);
 					});
                 }
