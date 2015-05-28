@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -54,6 +55,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Service\ContaAguaService.cs" />
+    <Compile Include="Service\CSVImport.cs" />
     <Compile Include="Service\FaixaConsumoService.cs" />
     <Compile Include="View\Cadastro.cs">
       <SubType>Form</SubType>
@@ -67,11 +69,11 @@
     <Compile Include="View\MenuChooser.Designer.cs">
       <DependentUpon>MenuChooser.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\lancarValores.cs">
+    <Compile Include="View\LancarValores.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\lancarValores.Designer.cs">
-      <DependentUpon>lancarValores.cs</DependentUpon>
+    <Compile Include="View\LancarValores.Designer.cs">
+      <DependentUpon>LancarValores.cs</DependentUpon>
     </Compile>
     <Compile Include="View\PesquisaContas.cs">
       <SubType>Form</SubType>
@@ -107,8 +109,8 @@
     <EmbeddedResource Include="View\MenuChooser.resx">
       <DependentUpon>MenuChooser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\lancarValores.resx">
-      <DependentUpon>lancarValores.cs</DependentUpon>
+    <EmbeddedResource Include="View\LancarValores.resx">
+      <DependentUpon>LancarValores.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\PesquisaContas.resx">
       <DependentUpon>PesquisaContas.cs</DependentUpon>
