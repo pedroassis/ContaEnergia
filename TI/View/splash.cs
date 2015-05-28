@@ -22,7 +22,7 @@ namespace TI.View
         {
             if (progressBar1.Value < 100)
             {
-                progressBar1.Value =  progressBar1.Value + 4;
+                progressBar1.Value =  progressBar1.Value + 2;
             }
             else
             {
