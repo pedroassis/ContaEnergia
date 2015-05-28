@@ -19,7 +19,7 @@ namespace TI.View
 
         PesquisaConsumidor pesqConsum = new PesquisaConsumidor();
         PesquisaContas pesqCont = new PesquisaContas();
-        lancarValores valores = new lancarValores();
+        LancarValores valores = new LancarValores();
         Cadastro cadCli = new Cadastro();
 
         private void Menu_Load(object sender, EventArgs e)
@@ -61,7 +61,7 @@ namespace TI.View
 
         private void Menu_FormClosing(object sender, FormClosingEventArgs e)
         {
-            pictureBox5_Click(null, null);
+            Application.Exit();
         }
     }
 }
