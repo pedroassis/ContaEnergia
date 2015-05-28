@@ -12,9 +12,9 @@ using TI.Service;
 
 namespace TI.View
 {
-    public partial class lancarValores : Form
+    public partial class LancarValores : Form
     {
-        public lancarValores()
+        public LancarValores()
         {
             InitializeComponent();
         }
@@ -134,6 +134,16 @@ namespace TI.View
             consumoAtual.Text = "";
             id.Text = "";
             id.Focus();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtTipo_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
