@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace SuperTrunfo
+namespace TI.DataSource
 {
 	public interface Strategy<T>
 	{		

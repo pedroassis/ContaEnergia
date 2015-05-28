@@ -1,1 +1,14 @@
-﻿<Properties StartupItem="TI/TI.csproj" />
+﻿<Properties StartupItem="TI/TI.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="TI/Datasource/DataSourceStrategy.cs">
+    <Files>
+      <File FileName="TI/Program.cs" Line="39" Column="39" />
+      <File FileName="TI/Datasource/DataSourceStrategy.cs" Line="56" Column="56" />
+      <File FileName="TI/Entidades/Pessoa.cs" Line="21" Column="21" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

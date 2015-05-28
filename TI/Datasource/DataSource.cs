@@ -1,7 +1,7 @@
 ﻿
 using System.Collections.Generic;
 
-namespace SuperTrunfo
+namespace TI.DataSource
 {
     interface DataSource
     {

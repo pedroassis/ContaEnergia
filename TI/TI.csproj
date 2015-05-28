@@ -8,7 +8,7 @@
     <RootNamespace>TI</RootNamespace>
     <AssemblyName>TI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <ProductVersion>10.0.0</ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -94,8 +94,9 @@
       <DependentUpon>splash.cs</DependentUpon>
     </Compile>
     <Compile Include="Service\IContaService.cs" />
-    <Compile Include="Entidade\TipoConta.cs" />
     <Compile Include="Service\ContaEnergiaService.cs" />
+    <Compile Include="Service\ContaCSVImporter.cs" />
+    <Compile Include="Entidade\IEntidade.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

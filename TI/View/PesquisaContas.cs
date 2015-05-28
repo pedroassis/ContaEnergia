@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using SuperTrunfo;
+using TI.DataSource;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TI.Service;
+using TI.Entidade;
 using System.IO;
 
 
@@ -18,7 +19,7 @@ namespace TI.View
     {
         private void load()
         {
-            load(ContaDataSource.getAll()); 
+            load(contaDataSource.getAll()); 
         }
         private void load(List<Conta> contas)
         {
@@ -90,8 +91,8 @@ namespace TI.View
         
         IContaService contaService = new ContaAguaService();
         private Strategy<Pessoa> pessoaDataSource = new DataSourceStrategy<Pessoa>();
-        private Strategy<Conta> ContaDataSource = new DataSourceStrategy<Conta>();
-        private CSVImport importer = new CSVImport();
+        private Strategy<Conta> contaDataSource = new DataSourceStrategy<Conta>();
+		private ContaCSVImporter importer = new ContaCSVImporter();
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
@@ -103,7 +104,7 @@ namespace TI.View
             {
                 List<Pessoa> lista = pessoaDataSource.find("Nome", searchBar.Text);
                 List<Conta> contas = new List<Conta>();
-                lista.ForEach(pessoa => contas.AddRange(ContaDataSource.find("Consumidor", pessoa.Id)));
+                lista.ForEach(pessoa => contas.AddRange(contaDataSource.find("Consumidor", pessoa.Id)));
                 load(contas);
             }
         }
@@ -156,33 +157,13 @@ namespace TI.View
             
            // openFileDialog1.Filter = "TXT Files|*.txt";
             openFileDialog1.Title = "Select a Cursor File";
-            openFileDialog1.ShowDialog();
+//            openFileDialog1.ShowDialog();
 
-            List<Func<string, Conta, object>> funcoes = new List<Func<string,Conta,object>>();
-
-            funcoes.Add((celula, conta) => "agua" == celula ? TipoConta.AGUA : TipoConta.ENERGIA);
-
-            funcoes.Add((celula, conta) => {
-                Pessoa pessoa = new Pessoa();
-                pessoa.Id = ++i;
-                if (celula.Contains("/"))
-                {                    
-                    pessoa.Documento = celula;
-                    pessoa.Tipo = "JURIDICA";                  
-                }
-                else
-                {
-                    pessoa.Documento = celula;
-                    pessoa.Tipo = "FISICA";
-                }
-                pessoaDataSource.add(pessoa);
-                return pessoa.Id;
-            });
-            importer.Import<Conta>(openFileDialog1.FileName, funcoes, new string[] { "TipoConta", "Consumidor", "Data", "LeituraAnterior", "LeituraAtual" });
             
+            //importer.Import(openFileDialog1.FileName, new string[] { "TipoConta", "Consumidor", "Data", "LeituraAnterior", "LeituraAtual" });
+			List<Conta> c = importer.Import("/Users/ac-passis/Downloads/contasV2.txt", new string[] { "TipoConta", "Consumidor", "Data", "LeituraAnterior", "LeituraAtual" });
+			contaDataSource.addAll (c);
         }
-
-        int i = 9999;
     }
 }
 ;
