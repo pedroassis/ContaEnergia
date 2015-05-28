@@ -49,12 +49,7 @@ namespace TI
             txtNome.Clear();
             txtCPF.Clear();
             txtCNPJ.Clear();
-            txtLogradouro.Clear();
-            txtNumero.Clear();
-            txtBairro.Clear();
-            txtCity.Clear();
-            txtCEP.Clear();
-
+            
         }
         
         private void button4_Click(object sender, EventArgs e)
@@ -83,8 +78,7 @@ namespace TI
             txtCPF.Clear();
             txtCNPJ.Show();
             txtCPF.Hide();
-            txtSexo.Hide();
-            comboSexo.Hide();
+         
             lblTipoDoc.Text = "CNPJ";
             
 
@@ -98,8 +92,7 @@ namespace TI
             txtCNPJ.Hide();
             txtCNPJ.Clear();
             txtCPF.Show();
-            txtSexo.Show();
-            comboSexo.Show();
+       
             lblTipoDoc.Text = "CPF";
         }
 
