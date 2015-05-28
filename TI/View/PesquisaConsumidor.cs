@@ -19,7 +19,7 @@ namespace TI.View
             InitializeComponent();
 
             pessoaDataSource.getAll().OrderBy(pessoa => pessoa.Id).ToList().ForEach(pessoa => dataGridView.Rows.Add(new string[] { 
-               pessoa.Id.ToString(), pessoa.Nome, pessoa.Tipo, pessoa.Documento }));
+              pessoa.Id.ToString(), pessoa.Nome, pessoa.Tipo, pessoa.Documento }));
 
 
 
@@ -65,9 +65,9 @@ namespace TI.View
 
         private void button3_Click_1(object sender, EventArgs e)
         {
-            lancarValores includeValor = new lancarValores();
+            LancarValores valores  = new LancarValores();
             this.Close();
-            includeValor.Show();
+            valores.Show();
         }
 
         private void button7_Click(object sender, EventArgs e)
