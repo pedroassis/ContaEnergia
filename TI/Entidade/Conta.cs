@@ -27,6 +27,7 @@ namespace TI
 		public Int32 LeituraAnterior { get; set;}
 		public Int32 Consumidor		 { get; set;}
 		public TipoConta TipoConta 	 { get; set;}
+        public String Data           { get; set;}
 	}
 }
 
