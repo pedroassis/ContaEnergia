@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.IO;
 
-namespace SuperTrunfo
+namespace TI.DataSource
 {
 	public class DataSourceStrategy<T> : Strategy<T>
 	{

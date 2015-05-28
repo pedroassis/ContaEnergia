@@ -14,6 +14,6 @@ namespace TI.Entidade
         public Double    Valor           { get; set; }
         public Int32     ValorFixo       { get; set; }
         public String    TipoPessoa      { get; set; }
-        public TipoConta TipoConta       { get; set; }
+		public String    TipoConta       { get; set; }
     }
 }
