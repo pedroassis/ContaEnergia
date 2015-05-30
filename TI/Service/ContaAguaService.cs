@@ -14,7 +14,7 @@ namespace TI.Service
         private static readonly Strategy<Pessoa> pessoaStrategy = new DataSourceStrategy<Pessoa>();
         private static readonly FaixaConsumoService faixaConsumoService = new FaixaConsumoService();
 
-        private static readonly double COFINS = 3d;
+        private static readonly double COFINS = 0.03d;
 
         public double getTotal(Conta conta)
         {
@@ -41,7 +41,7 @@ namespace TI.Service
 
         public double getImposto(Conta conta)
         {
-            return COFINS;
+            return getTotalSemImposto(conta) * COFINS;
         }
 
     }
