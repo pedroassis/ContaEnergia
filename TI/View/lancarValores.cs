@@ -110,12 +110,22 @@ namespace TI.View
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (tipoConta.SelectedIndex == 0)
+            {
+                MessageBox.Show("Tipo da conta é obrigatório.", "Ação inválida", MessageBoxButtons.OK);
+                return;
+            }
+
+            
+            
+            
             List<Conta> lista = ContaDataSource.getAll();
             conta.Id = lista.Count==0 ? 1 : lista.Last().Id + 1;
+            conta.TipoConta = tipoConta.SelectedText.ToUpper();
             ContaDataSource.add(conta);
             conta = new Conta();
             txtNome.Text = "";
-            txtTipo.Text = "";
+            txtTipo.Text = "con";
             valorContaAnterior.Text = "";
             valorContaAtual.Text = "";
             consumoAnterior.Text = "";
@@ -143,6 +153,11 @@ namespace TI.View
         }
 
         private void txtTipo_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
