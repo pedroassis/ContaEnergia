@@ -27,7 +27,7 @@ namespace TI.Service
 
 		private Conta ParseLine(String line, String[] columns){
 			String[] cells = line.Split (';');
-			return new Conta (getLastIDConta(), 0, Int32.Parse(cells[4]), Int32.Parse(cells[3]), getConsumidor(cells[1]));
+			return new Conta (getLastIDConta(), 0, Int32.Parse(cells[4]), Int32.Parse(cells[3]), getConsumidor(cells[1]), "AGUA");
 		}
 
 		private Int32 getConsumidor(String cell){
