@@ -50,19 +50,15 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.tipoConta = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.pictureBox2);
-            this.panel1.Controls.Add(this.pictureBox3);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.txtTipo);
             this.panel1.Controls.Add(this.groupBox1);
@@ -78,7 +74,7 @@
             this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(768, 334);
+            this.panel1.Size = new System.Drawing.Size(768, 390);
             this.panel1.TabIndex = 0;
             // 
             // label1
@@ -103,6 +99,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.tipoConta);
             this.groupBox1.Controls.Add(this.button5);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.valorContaAtual);
@@ -112,9 +110,9 @@
             this.groupBox1.Controls.Add(this.valorContaAnterior);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.consumoAnterior);
-            this.groupBox1.Location = new System.Drawing.Point(22, 124);
+            this.groupBox1.Location = new System.Drawing.Point(24, 120);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(730, 164);
+            this.groupBox1.Size = new System.Drawing.Size(730, 226);
             this.groupBox1.TabIndex = 53;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Dados de consumo";
@@ -123,7 +121,7 @@
             // button5
             // 
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(476, 127);
+            this.button5.Location = new System.Drawing.Point(476, 194);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(124, 26);
             this.button5.TabIndex = 54;
@@ -134,7 +132,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(231, 104);
+            this.label4.Location = new System.Drawing.Point(222, 171);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(147, 20);
             this.label4.TabIndex = 58;
@@ -144,7 +142,7 @@
             // 
             this.valorContaAtual.BackColor = System.Drawing.Color.Gainsboro;
             this.valorContaAtual.Enabled = false;
-            this.valorContaAtual.Location = new System.Drawing.Point(235, 127);
+            this.valorContaAtual.Location = new System.Drawing.Point(226, 194);
             this.valorContaAtual.Name = "valorContaAtual";
             this.valorContaAtual.Size = new System.Drawing.Size(210, 26);
             this.valorContaAtual.TabIndex = 59;
@@ -152,7 +150,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 104);
+            this.label3.Location = new System.Drawing.Point(2, 171);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(97, 20);
             this.label3.TabIndex = 56;
@@ -160,7 +158,7 @@
             // 
             // consumoAtual
             // 
-            this.consumoAtual.Location = new System.Drawing.Point(15, 127);
+            this.consumoAtual.Location = new System.Drawing.Point(6, 194);
             this.consumoAtual.Name = "consumoAtual";
             this.consumoAtual.Size = new System.Drawing.Size(210, 26);
             this.consumoAtual.TabIndex = 57;
@@ -168,7 +166,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(227, 48);
+            this.label6.Location = new System.Drawing.Point(218, 115);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(170, 20);
             this.label6.TabIndex = 54;
@@ -177,7 +175,7 @@
             // valorContaAnterior
             // 
             this.valorContaAnterior.BackColor = System.Drawing.Color.LightGray;
-            this.valorContaAnterior.Location = new System.Drawing.Point(231, 71);
+            this.valorContaAnterior.Location = new System.Drawing.Point(222, 138);
             this.valorContaAnterior.Name = "valorContaAnterior";
             this.valorContaAnterior.Size = new System.Drawing.Size(210, 26);
             this.valorContaAnterior.TabIndex = 55;
@@ -185,7 +183,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(11, 48);
+            this.label5.Location = new System.Drawing.Point(6, 115);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(116, 20);
             this.label5.TabIndex = 54;
@@ -194,7 +192,7 @@
             // consumoAnterior
             // 
             this.consumoAnterior.BackColor = System.Drawing.Color.LightGray;
-            this.consumoAnterior.Location = new System.Drawing.Point(15, 71);
+            this.consumoAnterior.Location = new System.Drawing.Point(6, 138);
             this.consumoAnterior.Name = "consumoAnterior";
             this.consumoAnterior.Size = new System.Drawing.Size(210, 26);
             this.consumoAnterior.TabIndex = 55;
@@ -249,7 +247,7 @@
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(22, 296);
+            this.button4.Location = new System.Drawing.Point(24, 354);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 26);
             this.button4.TabIndex = 32;
@@ -260,7 +258,7 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(498, 294);
+            this.button2.Location = new System.Drawing.Point(500, 352);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(124, 26);
             this.button2.TabIndex = 30;
@@ -271,7 +269,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(632, 294);
+            this.button1.Location = new System.Drawing.Point(634, 352);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(124, 26);
             this.button1.TabIndex = 28;
@@ -279,34 +277,34 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // pictureBox2
+            // tipoConta
             // 
-            this.pictureBox2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(662, 25);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(42, 38);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 57;
-            this.pictureBox2.TabStop = false;
+            this.tipoConta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tipoConta.FormattingEnabled = true;
+            this.tipoConta.Items.AddRange(new object[] {
+            "Agua",
+            "Energia"});
+            this.tipoConta.Location = new System.Drawing.Point(10, 73);
+            this.tipoConta.Name = "tipoConta";
+            this.tipoConta.Size = new System.Drawing.Size(206, 28);
+            this.tipoConta.TabIndex = 60;
+            this.tipoConta.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
-            // pictureBox3
+            // label7
             // 
-            this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(710, 25);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(42, 37);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 56;
-            this.pictureBox3.TabStop = false;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 50);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(105, 20);
+            this.label7.TabIndex = 61;
+            this.label7.Text = "Tipo da conta";
             // 
             // LancarValores
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(768, 334);
+            this.ClientSize = new System.Drawing.Size(768, 390);
             this.ControlBox = false;
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -320,8 +318,6 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -349,8 +345,8 @@
         private System.Windows.Forms.TextBox valorContaAtual;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtTipo;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.ComboBox tipoConta;
+        private System.Windows.Forms.Label label7;
 
 
     }
