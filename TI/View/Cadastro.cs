@@ -24,7 +24,7 @@ namespace TI
         {
             Pessoa p = new Pessoa();
             List<Pessoa> lista = pessoaDataSource.getAll();
-            p.Id = lista.Count == 0 ? 1 : lista.Last().Id + 1;
+            p.Id = lista.Count == 0 ? 1 : lista.Max(pe => pe.Id) + 1;
             p.Nome = txtNome.Text;
             p.Documento = rbFisica.Checked ? txtCPF.Text : txtCNPJ.Text;
             p.Tipo = rbFisica.Checked ? "FÍSICA" : "COMERCIAL";
