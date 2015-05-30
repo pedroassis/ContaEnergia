@@ -19,7 +19,8 @@ namespace TI.View
     {
         private void load()
         {
-            load(contaDataSource.getAll()); 
+            String tipo = rbAgua.Checked ? "AGUA" : "ENERGIA";
+            load(contaDataSource.find("TipoConta", tipo)); 
         }
         private void load(List<Conta> contas)
         {
@@ -47,6 +48,8 @@ namespace TI.View
         public PesquisaContas()
         {
             InitializeComponent();
+
+            
             load();
 
             
@@ -102,9 +105,13 @@ namespace TI.View
             }
             else
             {
+                String tipo = rbAgua.Checked ? "AGUA" : "ENERGIA";
                 List<Pessoa> lista = pessoaDataSource.find("Nome", searchBar.Text);
                 List<Conta> contas = new List<Conta>();
-                lista.ForEach(pessoa => contas.AddRange(contaDataSource.find("Consumidor", pessoa.Id)));
+                lista.ForEach(pessoa => contas.AddRange(
+                    contaDataSource
+                        .find("Consumidor", pessoa.Id)
+                        .Where(conta => tipo == conta.TipoConta)));
                 load(contas);
             }
         }
@@ -155,13 +162,13 @@ namespace TI.View
         private void pictureBox4_Click(object sender, EventArgs e)
         {
             
-           // openFileDialog1.Filter = "TXT Files|*.txt";
+            openFileDialog1.Filter = "TXT Files|*.txt";
             openFileDialog1.Title = "Select a Cursor File";
-//            openFileDialog1.ShowDialog();
+            openFileDialog1.ShowDialog();
 
-            
-            //importer.Import(openFileDialog1.FileName, new string[] { "TipoConta", "Consumidor", "Data", "LeituraAnterior", "LeituraAtual" });
-			List<Conta> c = importer.Import("/Users/ac-passis/Downloads/contasV2.txt", new string[] { "TipoConta", "Consumidor", "Data", "LeituraAnterior", "LeituraAtual" });
+
+            List<Conta> c = importer.Import(openFileDialog1.FileName, new string[] { "TipoConta", "Consumidor", "Data", "LeituraAnterior", "LeituraAtual" });
+			//List<Conta> c = importer.Import("/Users/ac-passis/Downloads/contasV2.txt", new string[] { "TipoConta", "Consumidor", "Data", "LeituraAnterior", "LeituraAtual" });
 			contaDataSource.addAll (c);
         }
     }
