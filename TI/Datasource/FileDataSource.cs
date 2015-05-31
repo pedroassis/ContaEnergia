@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.IO;
+using TI.Reflection;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace TI.DataSource
 {
@@ -49,9 +52,10 @@ namespace TI.DataSource
                     {
                         String line = reader.ReadLine();
 
-                        Object value = getValue(type, props[currentProperty], line);
+						Object value = getValue<T>(type, props[currentProperty], line);
 
-                        type.GetProperty(props[currentProperty]).SetValue(dataSourceObject, value);
+						PropertyCallAdapterProvider<T>.GetInstance (props [currentProperty]).InvokeSet (dataSourceObject, value);
+
                         currentProperty++;
                     }
 
@@ -62,8 +66,8 @@ namespace TI.DataSource
             return dataSource;
         }
 
-        private Object getValue(Type type, String name, Object value){
-			Type fieldType = type.GetProperty(name).PropertyType;
+        private Object getValue<T>(Type type, String name, Object value){
+			Type fieldType = PropertyCallAdapterProvider<T>.GetInstance (name).getGetter().ReturnType;
             if (fieldType == typeof(String))
             {
                 return value;
@@ -79,16 +83,30 @@ namespace TI.DataSource
             deleteFiles(type);
 
             List<String> props = readProperties(type);
-			
-			foreach(T obj in data){
-				using (TextWriter writer = new StreamWriter(folder.FullName + Path.DirectorySeparatorChar + type.Name + Path.DirectorySeparatorChar + getFileName(obj), true))
-                {
-					props.ForEach((prop) => {
-                        Object value = type.GetProperty(prop).GetValue (obj);
-						String line = value == null ? "" : value.ToString();
-						writer.WriteLine(line);
-					});
-                }
+
+			BlockingCollection<T> c = new BlockingCollection<T> (data.Count);
+
+			foreach(T t in data){
+				c.Add (t);
+			}
+
+			var coresCount = Environment.ProcessorCount;
+
+			Console.WriteLine (coresCount);
+
+			while(coresCount > 0){
+				coresCount--;
+				Task.Run (() => {
+
+					while(!c.IsCompleted){
+						T obj = c.Take();
+						using (TextWriter writer = new StreamWriter(folder.FullName + Path.DirectorySeparatorChar + type.Name + Path.DirectorySeparatorChar + getFileName(obj), true))
+						{
+							writer.Write(obj);
+						}
+					}
+
+				});
 			}
 			
             return true;

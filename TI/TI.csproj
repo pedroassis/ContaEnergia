@@ -97,6 +97,9 @@
     <Compile Include="Service\ContaEnergiaService.cs" />
     <Compile Include="Service\ContaCSVImporter.cs" />
     <Compile Include="Entidade\IEntidade.cs" />
+    <Compile Include="Reflection\IPropertyCallAdapter.cs" />
+    <Compile Include="Reflection\PropertyCallAdapter.cs" />
+    <Compile Include="Reflection\PropertyCallAdapterProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -122,5 +125,8 @@
     <EmbeddedResource Include="View\splash.resx">
       <DependentUpon>splash.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Reflection\" />
   </ItemGroup>
 </Project>

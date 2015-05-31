@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
+using TI.Reflection;
 using System.IO;
 
 namespace TI.DataSource
@@ -22,31 +22,27 @@ namespace TI.DataSource
 		private readonly DataSource dataSource;
 		
 		private List<T> cachedDataSource;
+
+		private Func<T, String, Object, Boolean> equalityComparator = (listObject, propName, toCompare) => {
+			return PropertyCallAdapterProvider<T>.GetInstance (propName).InvokeGet (listObject).Equals (toCompare);
+		};
 		
 		public List<T> getAll(){
 			return cachedDataSource;
 		}
 		
 		public T getById(Object id){
-			PropertyInfo fieldId = type.GetProperty("Id");
 			
-			return cachedDataSource.Find((listObject)=>{
-				return fieldId.GetValue(listObject).Equals(id);
-			});
+			return cachedDataSource.Find(listObject => equalityComparator(listObject, "Id", id));
 			
 		}
 
         public List<T> find(String propertyName, Object valueField){
-			PropertyInfo fieldId = type.GetProperty(propertyName);
-			return cachedDataSource.FindAll((listObject)=>{
-                return fieldId.GetValue(listObject).Equals(valueField);
-			});
+			return cachedDataSource.FindAll(listObject => equalityComparator(listObject, propertyName, valueField));
 		}
 		
 		public T findOne(String propertyName, Object valueField){
-			return cachedDataSource.Find((listObject)=>{				
-				return type.GetProperty(propertyName).GetValue(listObject).Equals(valueField);
-			});
+			return cachedDataSource.Find(listObject => equalityComparator(listObject, propertyName, valueField));
 		}
 		
 		public Boolean delete(){
@@ -67,7 +63,8 @@ namespace TI.DataSource
 		}
 
 		public Boolean addAll(List<T> list){
-			return dataSource.setDataSource (list);
+			cachedDataSource.AddRange (list);
+			return dataSource.setDataSource (cachedDataSource);
 		}
 
         public Boolean add(T item)
@@ -75,7 +72,6 @@ namespace TI.DataSource
             List<T> list = this.getAll();
             list.Add(item);
             return this.addAll(list);
-           
         }
 
 	}

@@ -17,6 +17,16 @@ namespace TI
 			this.Documento = documento;
 			this.Tipo = tipo;
 		}
+
+		public override string ToString ()
+		{
+			System.Text.StringBuilder lines = new System.Text.StringBuilder();
+			lines.AppendLine (Id.ToString());
+			lines.AppendLine (Nome);
+			lines.AppendLine (Documento);
+			lines.AppendLine (Tipo);
+			return lines.ToString();
+		}
 	}
 }
 

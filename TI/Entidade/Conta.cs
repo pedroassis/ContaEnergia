@@ -2,7 +2,7 @@
 
 namespace TI.Entidade
 {
-	public class Conta : IEntidade
+	public class Conta
 	{
 		public Conta (){}
 		public Conta (Int32 Id, Int32 NumeroRegistro, Int32 LeituraAtual, Int32 LeituraAnterior, Int32 Consumidor, String TipoConta){
@@ -19,6 +19,19 @@ namespace TI.Entidade
 			this.LeituraAtual 		= LeituraAtual;
 			this.LeituraAnterior	= LeituraAnterior;
 			this.Consumidor 		= Consumidor;
+		}
+
+		public override string ToString ()
+		{
+			System.Text.StringBuilder lines = new System.Text.StringBuilder();
+			lines.AppendLine (Id.ToString());
+			lines.AppendLine (NumeroRegistro.ToString());
+			lines.AppendLine (LeituraAtual.ToString());
+			lines.AppendLine (LeituraAnterior.ToString());
+			lines.AppendLine (Consumidor.ToString());
+			lines.AppendLine (TipoConta);
+			lines.AppendLine (Data);
+			return lines.ToString();
 		}
 
 		public Int32 Id				 { get; set;}

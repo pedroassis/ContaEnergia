@@ -18,7 +18,7 @@ namespace TI.Reflection
 					forPropertyName,
 					BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
-				MethodInfo getMethod;
+				MethodInfo getMethod = null;
 				Delegate getterInvocation = null;
 				if (property != null && (getMethod = property.GetGetMethod(true)) != null)
 				{
@@ -34,16 +34,17 @@ namespace TI.Reflection
 					//throw exception or create a default getterInvocation returning null
 				}
 
-				MethodInfo setMethod;
-				Delegate setterInvocation = null;
+				MethodInfo setMethod = null;
+				Action<TThis, Object> setterInvocation = null;
 				if (property != null && (setMethod = property.GetSetMethod(true)) != null)
 				{
 					var openSetterType = typeof(Action<,>);
 					var concreteSetterType = openSetterType
 						.MakeGenericType(typeof(TThis), property.PropertyType);
+					
+					Delegate setter = Delegate.CreateDelegate(concreteSetterType, null, setMethod);
 
-					setterInvocation =
-						Delegate.CreateDelegate(concreteSetterType, null, setMethod);
+					setterInvocation = (tThis, setValue) => setter.DynamicInvoke (tThis, setValue);
 				}
 				else
 				{
@@ -54,7 +55,7 @@ namespace TI.Reflection
 				var concreteAdapterType = openAdapterType
 					.MakeGenericType(typeof(TThis), property.PropertyType);
 				instance = Activator
-					.CreateInstance(concreteAdapterType, getterInvocation, setterInvocation)
+					.CreateInstance(concreteAdapterType, getterInvocation, setterInvocation, getMethod, setMethod)
 					as IPropertyCallAdapter<TThis>;
 
 				_instances.Add(forPropertyName, instance);

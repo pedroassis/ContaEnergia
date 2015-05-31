@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 namespace TI.Reflection
 {
@@ -6,6 +7,9 @@ namespace TI.Reflection
 	{
 		object InvokeGet(TThis @this);
 		void InvokeSet(TThis @this, Object value);
+
+		MethodInfo getGetter();
+		MethodInfo getSetter();
 	}
 }
 
