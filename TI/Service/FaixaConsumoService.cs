@@ -19,7 +19,7 @@ namespace TI.Service
         }
 
         public double getTotal(double consumo, FaixaConsumo faixa) {
-            double maxConsumoFaixa = consumo > faixa.Maximo ? faixa.Maximo : consumo;
+			double maxConsumoFaixa = consumo > faixa.Maximo && faixa.Maximo != 0 ? faixa.Maximo : consumo;
 
             double consumoFaixa = maxConsumoFaixa - faixa.Minimo;
             consumoFaixa = consumoFaixa >= 0 ? consumoFaixa : 0;

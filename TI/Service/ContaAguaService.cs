@@ -27,12 +27,20 @@ namespace TI.Service
 
             String tipoPessoa = pessoaStrategy.getById(conta.Consumidor).Tipo;
 
-            return faixaConsumoService.getAll()
+			List<FaixaConsumo> faixas = faixaConsumoService.getAll ()
 
-                .Where(faixa => consumo >= faixa.Minimo && faixa.TipoConta == conta.TipoConta && faixa.TipoPessoa == tipoPessoa)
+				.Where (faixa => consumo >= faixa.Minimo && faixa.TipoConta == conta.TipoConta && faixa.TipoPessoa == tipoPessoa)
+				.ToList ();
 
-                .Sum(faixa => faixaConsumoService.getTotal(consumo, faixa));
+			FaixaConsumo faixaConsumo = faixas.OrderBy (f => f.Maximo).First();
+
+			return faixaConsumo.Maximo >= consumo ? faixaConsumo.ValorFixo : calculaFaixas (faixas, consumo);
         }
+
+		private double calculaFaixas(List<FaixaConsumo> faixas, double consumo){
+
+			return faixas.Sum(faixa => faixaConsumoService.getTotal(consumo, faixa));
+		}
 
         public double getConsumo(Conta conta)
         {

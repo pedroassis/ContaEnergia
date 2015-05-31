@@ -12,7 +12,7 @@ namespace TI.Entidade
         public Int32     Minimo          { get; set; }
         public Int32     Maximo          { get; set; }
         public Double    Valor           { get; set; }
-        public Int32     ValorFixo       { get; set; }
+		public Double    ValorFixo       { get; set; }
         public String    TipoPessoa      { get; set; }
 		public String    TipoConta       { get; set; }
     }
