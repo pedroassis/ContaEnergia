@@ -7,21 +7,19 @@ namespace TI.DataSource
 {
 	public class DataSourceStrategy<T> : Strategy<T>
 	{
-		
-		public DataSourceStrategy ()
-		{
+
+		static DataSourceStrategy(){
 			type = typeof(T);
 			String name = type.Name;
 			dataSource = new FileDataSource(new DirectoryInfo(Directory.GetCurrentDirectory () + Path.DirectorySeparatorChar + "data"  + Path.DirectorySeparatorChar + name), "Id");
-
 			cachedDataSource = dataSource.getDataSource<T>();
 		}
 		
-		private Type type;
+		private static readonly Type type;
 		
-		private readonly DataSource dataSource;
+		private static DataSource dataSource;
 		
-		private List<T> cachedDataSource;
+		private static readonly List<T> cachedDataSource;
 
 		private Func<T, String, Object, Boolean> equalityComparator = (listObject, propName, toCompare) => {
 			return PropertyCallAdapterProvider<T>.GetInstance (propName).InvokeGet (listObject).Equals (toCompare);
