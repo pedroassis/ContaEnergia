@@ -82,8 +82,6 @@ namespace TI.DataSource
 
             deleteFiles(type);
 
-            List<String> props = readProperties(type);
-
 			BlockingCollection<T> c = new BlockingCollection<T> (data.Count);
 
 			foreach(T t in data){
@@ -91,8 +89,6 @@ namespace TI.DataSource
 			}
 
 			var coresCount = Environment.ProcessorCount;
-
-			Console.WriteLine (coresCount);
 
 			while(coresCount > 0){
 				coresCount--;

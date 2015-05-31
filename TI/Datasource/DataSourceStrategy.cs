@@ -19,7 +19,7 @@ namespace TI.DataSource
 		
 		private static DataSource dataSource;
 		
-		private static readonly List<T> cachedDataSource;
+		private static List<T> cachedDataSource;
 
 		private Func<T, String, Object, Boolean> equalityComparator = (listObject, propName, toCompare) => {
 			return PropertyCallAdapterProvider<T>.GetInstance (propName).InvokeGet (listObject).Equals (toCompare);
@@ -62,14 +62,19 @@ namespace TI.DataSource
 
 		public Boolean addAll(List<T> list){
 			cachedDataSource.AddRange (list);
-			return dataSource.setDataSource (cachedDataSource);
+			dataSource.setDataSource (cachedDataSource);
+
+			cachedDataSource.RemoveAll (x => list.Exists(y => equalityComparator(x, "Id", PropertyCallAdapterProvider<T>.GetInstance ("Id").InvokeGet (y))));
+			return true;
 		}
 
         public Boolean add(T item)
         {
             List<T> list = this.getAll();
             list.Add(item);
-            return this.addAll(list);
+			Object id = PropertyCallAdapterProvider<T>.GetInstance ("Id").InvokeGet (item);
+			list.RemoveAll (x => equalityComparator(x, "Id", id));
+			return dataSource.setDataSource (list);
         }
 
 	}
