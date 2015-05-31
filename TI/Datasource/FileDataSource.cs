@@ -48,7 +48,7 @@ namespace TI.DataSource
                     T dataSourceObject = (T) Activator.CreateInstance(type);
 
                     int currentProperty = 0;
-                    while (!reader.EndOfStream)
+                    while (!reader.EndOfStream && props.Count > currentProperty)
                     {
                         String line = reader.ReadLine();
 

@@ -33,6 +33,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtTipo = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tipoConta = new System.Windows.Forms.ComboBox();
             this.button5 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.valorContaAtual = new System.Windows.Forms.TextBox();
@@ -50,8 +52,6 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.tipoConta = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -118,6 +118,28 @@
             this.groupBox1.Text = "Dados de consumo";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 50);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(105, 20);
+            this.label7.TabIndex = 61;
+            this.label7.Text = "Tipo da conta";
+            // 
+            // tipoConta
+            // 
+            this.tipoConta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.tipoConta.FormattingEnabled = true;
+            this.tipoConta.Items.AddRange(new object[] {
+            "Agua",
+            "Energia"});
+            this.tipoConta.Location = new System.Drawing.Point(10, 73);
+            this.tipoConta.Name = "tipoConta";
+            this.tipoConta.Size = new System.Drawing.Size(206, 28);
+            this.tipoConta.TabIndex = 60;
+            this.tipoConta.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // button5
             // 
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -162,6 +184,8 @@
             this.consumoAtual.Name = "consumoAtual";
             this.consumoAtual.Size = new System.Drawing.Size(210, 26);
             this.consumoAtual.TabIndex = 57;
+            this.consumoAtual.TextChanged += new System.EventHandler(this.consumoAtual_TextChanged);
+            this.consumoAtual.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numbersOnly);
             // 
             // label6
             // 
@@ -276,28 +300,6 @@
             this.button1.Text = "Cadastrar";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // tipoConta
-            // 
-            this.tipoConta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.tipoConta.FormattingEnabled = true;
-            this.tipoConta.Items.AddRange(new object[] {
-            "Agua",
-            "Energia"});
-            this.tipoConta.Location = new System.Drawing.Point(10, 73);
-            this.tipoConta.Name = "tipoConta";
-            this.tipoConta.Size = new System.Drawing.Size(206, 28);
-            this.tipoConta.TabIndex = 60;
-            this.tipoConta.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 50);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(105, 20);
-            this.label7.TabIndex = 61;
-            this.label7.Text = "Tipo da conta";
             // 
             // LancarValores
             // 

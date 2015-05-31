@@ -22,7 +22,8 @@ namespace TI.DataSource
 		private static readonly List<T> cachedDataSource;
 
 		private Func<T, String, Object, Boolean> equalityComparator = (listObject, propName, toCompare) => {
-			return PropertyCallAdapterProvider<T>.GetInstance (propName).InvokeGet (listObject).Equals (toCompare);
+            Object obj = PropertyCallAdapterProvider<T>.GetInstance(propName).InvokeGet(listObject);
+            return obj != null && obj.Equals(toCompare);
 		};
 		
 		public List<T> getAll(){

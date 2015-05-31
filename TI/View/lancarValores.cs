@@ -60,7 +60,7 @@ namespace TI.View
 
         private void lancarValores_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         ContaEnergiaService contaService = new ContaEnergiaService();
@@ -110,7 +110,7 @@ namespace TI.View
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (tipoConta.SelectedIndex == 0)
+            if (tipoConta.SelectedItem=="")
             {
                 MessageBox.Show("Tipo da conta é obrigatório.", "Ação inválida", MessageBoxButtons.OK);
                 return;
@@ -125,7 +125,7 @@ namespace TI.View
             ContaDataSource.add(conta);
             conta = new Conta();
             txtNome.Text = "";
-            txtTipo.Text = "con";
+            txtTipo.Text = "";
             valorContaAnterior.Text = "";
             valorContaAtual.Text = "";
             consumoAnterior.Text = "";
@@ -160,6 +160,26 @@ namespace TI.View
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void consumoAtual_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numbersOnly(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+            (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
         }
     }
 }
