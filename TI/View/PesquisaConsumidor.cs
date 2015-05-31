@@ -94,14 +94,14 @@ namespace TI.View
             if (searchBar.Text == "")
             {
                 pessoaDataSource.getAll().OrderBy(pessoa => pessoa.Id).ToList().ForEach(pessoa => dataGridView.Rows.Add(new string[] { 
-               pessoa.Id.ToString(), pessoa.Nome, pessoa.Tipo, pessoa.Documento }));
+                pessoa.Id.ToString(), pessoa.Nome, pessoa.Tipo, pessoa.Documento }));
             }
             else
             {
-                List<Pessoa> lista = pessoaDataSource.find("Nome", searchBar.Text);
+                List<Pessoa> lista = pessoaDataSource.find("Documento", searchBar.Text);
                 if (radioButton1.Checked || radioButton2.Checked)
                 {
-                    string Tipo = radioButton1.Checked ? "FISICA" : "COMERCIAL";
+                    string Tipo = radioButton1.Checked ? "FISICA" : "JURIDICA";
                     lista = lista.FindAll(pessoa => pessoa.Tipo==Tipo);
 
                 }
