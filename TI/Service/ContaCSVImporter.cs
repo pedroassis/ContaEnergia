@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
 using TI.Entidade;
@@ -17,15 +18,17 @@ namespace TI.Service
 
 		private List<Pessoa> pessoas = new List<Pessoa>();
 
-		public List<Conta> Import(String[] lines, String[] columns, Action<Conta> notifier){
-			List<Conta> contas = lines.Select (line => {
-				Conta c = ParseLine(line, columns);
-				notifier(c);
-				return c;
-			}).ToList(); 
-			pessoaDataSource.addAll (pessoas);
-			pessoas = new List<Pessoa> ();
-			return contas;
+		public void Import(String[] lines, String[] columns, Action<Conta> notifier){
+			Task.Run (() => {
+				List<Conta> contas = lines.Select (line => {
+					Conta c = ParseLine(line, columns);
+					notifier(c);
+					return c;
+				}).ToList(); 
+				pessoaDataSource.addAll (pessoas);
+				pessoas = new List<Pessoa> ();
+				contaDataSource.addAll(contas);
+			});
 		}
 
 		public List<Conta> Import(String fileName, String[] columns){

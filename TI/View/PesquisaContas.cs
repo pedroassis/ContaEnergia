@@ -177,7 +177,7 @@ namespace TI.View
 
 			importSize = lines.Length;
 
-			List<Conta> c = importer.Import(lines, columns, (conta) => {
+			importer.Import(lines, columns, (conta) => {
 				addGrid(conta);
 				increase();
 			});
