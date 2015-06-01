@@ -17,6 +17,18 @@ namespace TI.Service
 
 		private List<Pessoa> pessoas = new List<Pessoa>();
 
+		public List<Conta> Import(String fileName, String[] columns, Action<Conta> notifier){
+			String[] lines = File.ReadAllLines(fileName);
+			List<Conta> contas = lines.Select (line => {
+				Conta c = ParseLine(line, columns);
+				notifier(c);
+				return c;
+			}).ToList(); 
+			pessoaDataSource.addAll (pessoas);
+			pessoas = new List<Pessoa> ();
+			return contas;
+		}
+
 		public List<Conta> Import(String fileName, String[] columns){
 			String[] lines = File.ReadAllLines(fileName);
 			List<Conta> contas = lines.Select (line => ParseLine(line, columns)).ToList(); 
