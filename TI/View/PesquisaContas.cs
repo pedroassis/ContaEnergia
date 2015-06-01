@@ -175,7 +175,7 @@ namespace TI.View
 
 			String[] lines = File.ReadAllLines (openFileDialog1.FileName);
 
-			importSize = lines.Count;
+			importSize = lines.Length;
 
 			List<Conta> c = importer.Import(lines, columns, (conta) => {
 				addGrid(conta);
@@ -187,7 +187,9 @@ namespace TI.View
         }
 
 		private int getPercentage(){
-			return (int) (dataGridView1.Rows.Count / importSize * 100);
+			String tipo = rbAgua.Checked ? "AGUA" : "ENERGIA";
+			int size = contaDataSource.find("TipoConta", tipo).Count;
+			return (int) ((dataGridView1.Rows.Count - size) / importSize * 100);
 		}
     }
 }
