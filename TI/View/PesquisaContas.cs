@@ -24,7 +24,7 @@ namespace TI.View
         }
         private void load(List<Conta> contas)
         {
-            
+			dataGridView1.Rows.Clear ();
 			contas.OrderBy (conta => conta.Id).ToList ().ForEach (addGrid);
         }
 
@@ -101,6 +101,8 @@ namespace TI.View
 		private ContaCSVImporter importer = new ContaCSVImporter();
 		private String[] columns = new string[] { "TipoConta", "Consumidor", "Data", "LeituraAnterior", "LeituraAtual" };
 
+		private Int32 importSize;
+
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
@@ -171,8 +173,11 @@ namespace TI.View
             openFileDialog1.Title = "Select a Cursor File";
             openFileDialog1.ShowDialog();
 
+			String[] lines = File.ReadAllLines (openFileDialog1.FileName);
 
-			List<Conta> c = importer.Import(openFileDialog1.FileName, columns, (conta) => {
+			importSize = lines.Count;
+
+			List<Conta> c = importer.Import(lines, columns, (conta) => {
 				addGrid(conta);
 				increase();
 			});
@@ -180,5 +185,9 @@ namespace TI.View
 			contaDataSource.addAll (c);
 			load ();
         }
+
+		private int getPercentage(){
+			return (int) (dataGridView1.Rows.Count / importSize * 100);
+		}
     }
 }
