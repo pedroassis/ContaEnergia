@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TI.Reflection;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace TI.DataSource
 {
@@ -83,16 +84,28 @@ namespace TI.DataSource
             }
             cachedDataSource.Clear();
             cachedDataSource.AddRange(result.Values.ToList());
-            return dataSource.setDataSource(cachedDataSource); 
+            return dataSource.setDataSource(cachedDataSource);
         }
 
-        public Boolean add(T item)
+        public Boolean add(T itemToAdd)
         {
-            List<T> list = this.getAll();
-            list.Add(item);
-            Object id = PropertyCallAdapterProvider<T>.GetInstance("Id").InvokeGet(item);
-            list.RemoveAll(x => equalityComparator(x, "Id", id));
-            return dataSource.setDataSource(list);
+            Dictionary<Object, T> result = new Dictionary<Object, T>(cachedDataSource.Count);
+
+            Parallel.ForEach(cachedDataSource, item =>
+              {
+
+
+                  Object id = PropertyCallAdapterProvider<T>.GetInstance("Id").InvokeGet(item);
+                  result[id] = item;
+              });
+            
+            Object idToAdd = PropertyCallAdapterProvider<T>.GetInstance("Id").InvokeGet(itemToAdd);
+            result[idToAdd] = itemToAdd;
+            cachedDataSource.Clear();
+            cachedDataSource.AddRange(result.Values.ToList());
+
+            return dataSource.add(itemToAdd);
+
         }
 
     }

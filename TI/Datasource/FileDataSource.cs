@@ -74,13 +74,13 @@ namespace TI.DataSource
             }
 
             return fieldType.GetMethod("Parse", new[] { typeof(string) }).Invoke(null, new String[] { (String)value });
-        }
+		}
 
-        public bool setDataSource<T>(List<T> data){
+		public bool setDataSource<T>(List<T> data){
 
-            Type type = typeof(T);
+			Type type = typeof(T);
 
-            deleteFiles(type);
+			deleteFiles(type);
 
 			BlockingCollection<T> c = new BlockingCollection<T> (data.Count);
 
@@ -104,9 +104,41 @@ namespace TI.DataSource
 
 				});
 			}
+
+			return true;
+		}
+
+		public bool add<T>(T obj){
+
+			Type type = typeof(T);
+
+			String name = folder.FullName + Path.DirectorySeparatorChar + type.Name + Path.DirectorySeparatorChar + getFileName (obj);
+
+			FileInfo f = new FileInfo (name);
+
 			
-            return true;
-        }
+            try
+            {
+                if (f.Exists)
+                {
+                    f.Delete();
+                }
+
+                using (TextWriter writer = new StreamWriter(name, true))
+                {
+                    writer.Write(obj);
+                }
+            }
+            catch (Exception)
+            {
+                
+                
+            }
+			
+					
+
+			return true;
+		}
 		
         public bool delete<T>(T dataSourceItem){
             Type type = typeof(T);

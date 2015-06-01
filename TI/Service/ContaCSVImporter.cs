@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using TI.Entidade;
 using TI.DataSource;
 
@@ -19,16 +20,26 @@ namespace TI.Service
 		private List<Pessoa> pessoas = new List<Pessoa>();
 
 		public void Import(String[] lines, String[] columns, Action<Conta> notifier){
-			Task.Run (() => {
-				List<Conta> contas = lines.Select (line => {
-					Conta c = ParseLine(line, columns);
-					notifier(c);
-					return c;
-				}).ToList(); 
-				pessoaDataSource.addAll (pessoas);
-				pessoas = new List<Pessoa> ();
-				contaDataSource.addAll(contas);
-			});
+
+			BlockingCollection<String> c = new BlockingCollection<String> (lines.Length);
+
+			foreach(String t in lines){
+				c.Add (t);
+			}
+
+			var coresCount = Environment.ProcessorCount;
+
+			while(coresCount > 0){
+				coresCount--;
+				Task.Run (() => {
+					while(!c.IsCompleted){
+						String line = c.Take();
+						Conta ct = ParseLine(line, columns);
+						contaDataSource.add(ct);
+						notifier(ct);
+					}
+				});
+			}
 		}
 
 		public List<Conta> Import(String fileName, String[] columns){
@@ -57,7 +68,7 @@ namespace TI.Service
 				pessoa.Documento = cell;
 				pessoa.Tipo = "FISICA";
 			}
-			pessoas.Add(pessoa);
+			pessoaDataSource.add(pessoa);
 			return pessoa.Id;
 		}
 
