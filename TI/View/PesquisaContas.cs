@@ -28,6 +28,9 @@ namespace TI.View
             contas.OrderBy(conta => conta.Id).ToList().ForEach(conta =>
             {
                 Pessoa pessoa = pessoaDataSource.getById(conta.Consumidor);
+				if(pessoa == null){
+						Console.WriteLine("Conta nao possui Consumidor. Id Conta: " + conta.Id);
+				} else
                 dataGridView1.Rows.Add(new string[] { 
                     conta.Id.ToString(),
                     pessoa.Nome,
@@ -36,9 +39,7 @@ namespace TI.View
                     conta.LeituraAtual.ToString(),
                     contaService.getTotalSemImposto(conta).ToString(),
                     contaService.getImposto(conta).ToString(),
-                    contaService.getTotal(conta).ToString()                    
-
-
+                    contaService.getTotal(conta).ToString()
                 });
 
             });

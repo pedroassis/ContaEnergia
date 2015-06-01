@@ -25,7 +25,9 @@ namespace TI.Service
         {
             double consumo = getConsumo(conta);
 
-            String tipoPessoa = pessoaStrategy.getById(conta.Consumidor).Tipo;
+			Pessoa pessoa = pessoaStrategy.getById (conta.Consumidor);
+
+			String tipoPessoa = pessoa != null ? pessoa.Tipo : "";
 
 			List<FaixaConsumo> faixas = faixaConsumoService.getAll ()
 

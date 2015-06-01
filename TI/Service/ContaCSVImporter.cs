@@ -32,7 +32,7 @@ namespace TI.Service
 
 		private Int32 getConsumidor(String cell){
 			Pessoa pessoa = new Pessoa();
-			pessoa.Id = getLastIDPessoa();
+			pessoa.Id = getLastIDPessoa(cell);
 			if (cell.Contains("/"))
 			{                    
 				pessoa.Documento = cell;
@@ -52,8 +52,9 @@ namespace TI.Service
 			return contaLastId;
 		}
 
-		private Int32 getLastIDPessoa(){
-			pessoaLastId = pessoaLastId == 0 && pessoaDataSource.getAll ().Any () ? pessoaDataSource.getAll().DefaultIfEmpty().Max(x => x.Id) + 1 : pessoaLastId + 1;
+		private Int32 getLastIDPessoa(String cell){
+			Pessoa p = pessoaDataSource.findOne ("Documento", cell);
+			pessoaLastId = p != null ? p.Id : pessoaLastId == 0 && pessoaDataSource.getAll ().Any () ? pessoaDataSource.getAll().DefaultIfEmpty().Max(x => x.Id) + 1 : pessoaLastId + 1;
 			return pessoaLastId;
 		}
 	}

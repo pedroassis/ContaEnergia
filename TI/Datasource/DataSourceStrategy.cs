@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TI.Reflection;
 using System.IO;
+using System.Linq;
 
 namespace TI.DataSource
 {
@@ -64,8 +65,13 @@ namespace TI.DataSource
 		public Boolean addAll(List<T> list){
 			cachedDataSource.AddRange (list);
 			dataSource.setDataSource (cachedDataSource);
-
-			cachedDataSource.RemoveAll (x => list.Exists(y => equalityComparator(x, "Id", PropertyCallAdapterProvider<T>.GetInstance ("Id").InvokeGet (y))));
+			Dictionary<Object, T> result = new Dictionary<Object, T> (list.Count);
+			foreach(T item in cachedDataSource){
+				Object id = PropertyCallAdapterProvider<T>.GetInstance ("Id").InvokeGet (item);
+				result [id] = item;
+			}
+			cachedDataSource.Clear ();
+			cachedDataSource.AddRange(result.Values.ToList());
 			return true;
 		}
 
