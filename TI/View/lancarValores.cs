@@ -20,6 +20,10 @@ namespace TI.View
             InitializeComponent();
         }
 
+		public IContaService getService(Conta conta){
+			return conta.TipoConta == "AGUA" ? aguaService : energiaService;
+		}
+
         private void label2_Click(object sender, EventArgs e)
         {
 
@@ -63,19 +67,18 @@ namespace TI.View
             
         }
 
-        ContaEnergiaService contaService = new ContaEnergiaService();
+		IContaService energiaService = new ContaEnergiaService();
+		IContaService aguaService = new ContaAguaService();
         private Strategy<Pessoa> pessoaDataSource = new DataSourceStrategy<Pessoa>();
         private Strategy<Conta> ContaDataSource = new DataSourceStrategy<Conta>();
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             Pessoa pessoa;
 
-            try
-            {
+            try {
                 pessoa = pessoaDataSource.getById(int.Parse(id.Text));
             }
-            catch (Exception)
-            {
+            catch (Exception) {
                 return;
             }
 
@@ -88,7 +91,7 @@ namespace TI.View
                 if (contas.Count != 0)
                 {
                     Conta contaAnterior = contas.Last();
-                    valorContaAnterior.Text = contaService.getTotal(contaAnterior).ToString();
+                    valorContaAnterior.Text = getService(conta).getTotal(contaAnterior).ToString();
                     consumoAnterior.Text = (contaAnterior.LeituraAnterior + contaAnterior.LeituraAtual).ToString();
                     conta.LeituraAnterior = (contaAnterior.LeituraAnterior + contaAnterior.LeituraAtual);
                 }
@@ -105,7 +108,7 @@ namespace TI.View
         {
             conta.LeituraAtual = int.Parse(consumoAtual.Text);
 
-            valorContaAtual.Text = contaService.getTotal(conta).ToString();
+            valorContaAtual.Text = getService(conta).getTotal(conta).ToString();
         }
 
         private void button1_Click(object sender, EventArgs e)
