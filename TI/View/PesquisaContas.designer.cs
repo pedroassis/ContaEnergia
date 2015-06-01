@@ -31,6 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PesquisaContas));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblAte = new System.Windows.Forms.Label();
+            this.lblDe = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.rbAgua = new System.Windows.Forms.RadioButton();
             this.rbEnergia = new System.Windows.Forms.RadioButton();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
@@ -52,10 +56,6 @@
             this.searchBar = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lblDe = new System.Windows.Forms.Label();
-            this.lblAte = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -87,6 +87,46 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1032, 554);
             this.panel1.TabIndex = 0;
+            // 
+            // lblAte
+            // 
+            this.lblAte.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAte.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblAte.Location = new System.Drawing.Point(794, 15);
+            this.lblAte.Name = "lblAte";
+            this.lblAte.Size = new System.Drawing.Size(149, 20);
+            this.lblAte.TabIndex = 30;
+            this.lblAte.Text = "10000000000";
+            // 
+            // lblDe
+            // 
+            this.lblDe.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDe.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblDe.Location = new System.Drawing.Point(619, 15);
+            this.lblDe.Name = "lblDe";
+            this.lblDe.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lblDe.Size = new System.Drawing.Size(156, 20);
+            this.lblDe.TabIndex = 29;
+            this.lblDe.Text = "100000";
+            this.lblDe.Click += new System.EventHandler(this.lblDe_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(770, 15);
+            this.label1.Name = "label1";
+            this.label1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label1.Size = new System.Drawing.Size(27, 20);
+            this.label1.TabIndex = 27;
+            this.label1.Text = "de";
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(12, 530);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(1005, 16);
+            this.progressBar1.TabIndex = 1;
             // 
             // rbAgua
             // 
@@ -309,52 +349,15 @@
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 530);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(1005, 16);
-            this.progressBar1.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(770, 15);
-            this.label1.Name = "label1";
-            this.label1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label1.Size = new System.Drawing.Size(27, 20);
-            this.label1.TabIndex = 27;
-            this.label1.Text = "de";
-            // 
-            // lblDe
-            // 
-            this.lblDe.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDe.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblDe.Location = new System.Drawing.Point(619, 15);
-            this.lblDe.Name = "lblDe";
-            this.lblDe.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.lblDe.Size = new System.Drawing.Size(156, 20);
-            this.lblDe.TabIndex = 29;
-            this.lblDe.Text = "100000";
-            // 
-            // lblAte
-            // 
-            this.lblAte.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAte.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblAte.Location = new System.Drawing.Point(794, 15);
-            this.lblAte.Name = "lblAte";
-            this.lblAte.Size = new System.Drawing.Size(149, 20);
-            this.lblAte.TabIndex = 30;
-            this.lblAte.Text = "10000000000";
-            // 
             // PesquisaContas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(1032, 554);
+            this.ControlBox = false;
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PesquisaContas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
