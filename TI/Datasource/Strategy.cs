@@ -6,6 +6,8 @@ namespace TI.DataSource
 	public interface Strategy<T>
 	{		
 		List<T> getAll();
+
+		List<T> getAll(bool cached);
 		
 		T getById(Object id);
 		

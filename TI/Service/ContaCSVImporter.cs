@@ -43,8 +43,11 @@ namespace TI.Service
 				while(!c.IsCompleted){
 					String line = c.Take();
 					Conta ct = ParseLine(line, columns);
+					contaDataSource.add(ct);
 					notifier(ct);
 				}
+				pessoaDataSource.addAll(pessoas);
+				pessoas = new List<Pessoa>();
 			} catch(Exception e){
 				Console.WriteLine(e.StackTrace);
 			}

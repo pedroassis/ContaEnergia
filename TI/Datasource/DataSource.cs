@@ -4,12 +4,13 @@ using System.Collections.Generic;
 namespace TI.DataSource
 {
     interface DataSource
-    {
-        /// <summary>
-        /// Should return a List of persisted objects
-        /// </summary>
-        /// <returns>List A new List of object of type T</returns>
-        List<T> getDataSource<T>();
+	{
+		/// <summary>
+		/// Should return a List of persisted objects
+		/// </summary>
+		/// <returns>List A new List of object of type T</returns>
+		List<T> getDataSource<T>();
+
 
         /// <summary>
         /// Should persist the ListT to the specified dataSource type.
