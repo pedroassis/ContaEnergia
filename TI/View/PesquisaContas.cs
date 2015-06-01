@@ -43,8 +43,22 @@ namespace TI.View
         {
             String tipo = rbAgua.Checked ? "AGUA" : "ENERGIA";
 
-            lblDe.Text = dataGridView1.Rows.Count.ToString();
-            lblAte.Text = contaDataSource.find("TipoConta", tipo).Count.ToString();
+            if (progressBar1.InvokeRequired)
+            {
+                progressBar1.Invoke(new MethodInvoker(delegate
+                {
+                    lblDe.Text = dataGridView1.Rows.Count.ToString();
+                    lblAte.Text = contaDataSource.find("TipoConta", tipo).Count.ToString();
+                }));
+            }
+            else
+            {
+                lblDe.Text = dataGridView1.Rows.Count.ToString();
+                lblAte.Text = contaDataSource.find("TipoConta", tipo).Count.ToString();
+            }
+            
+
+            
         }
 
         public void addGrid(Conta conta, Pessoa pessoa)
@@ -187,11 +201,20 @@ namespace TI.View
         {
             updateSize();
             imported++;
+            
+            
 
-			if (getPercentage () > 100) {
-				progressBar1.Visible = false;
+
+			if (getPercentage () >= 100) {
+
+                progressBar1.Invoke(new MethodInvoker(delegate { progressBar1.Visible = false; }));
 			} else {
-				progressBar1.Value = getPercentage ();
+
+                progressBar1.Invoke(new MethodInvoker(delegate { 
+                    progressBar1.Visible = true; 
+                    progressBar1.Value = getPercentage(); 
+                }));
+                
 			}
 
         }
@@ -221,7 +244,7 @@ namespace TI.View
         private int getPercentage()
         {
             
-            return (int)(imported / importSize * 100);
+            return (int)((double)imported / importSize * 100);
         }
 
         private void lblDe_Click(object sender, EventArgs e)
