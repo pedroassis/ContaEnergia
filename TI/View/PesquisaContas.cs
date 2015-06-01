@@ -169,8 +169,8 @@ namespace TI.View
 
 
             List<Conta> c = importer.Import(openFileDialog1.FileName, new string[] { "TipoConta", "Consumidor", "Data", "LeituraAnterior", "LeituraAtual" });
-			//List<Conta> c = importer.Import("/Users/ac-passis/Downloads/contasV2.txt", new string[] { "TipoConta", "Consumidor", "Data", "LeituraAnterior", "LeituraAtual" });
 			contaDataSource.addAll (c);
+            load();
         }
     }
 }
