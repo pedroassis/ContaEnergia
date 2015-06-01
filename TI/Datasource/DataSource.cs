@@ -18,6 +18,8 @@ namespace TI.DataSource
         /// <returns>Returns true if persisted with success</returns>
         bool setDataSource<T>(List<T> dataSource);
 
+		bool add<T>(T obj);
+
         /// <summary>
         /// Should remove the T object from the specified dataSource type.
         /// </summary>

@@ -77,11 +77,7 @@ namespace TI.DataSource
 
         public Boolean add(T item)
         {
-            List<T> list = this.getAll();
-            list.Add(item);
-			Object id = PropertyCallAdapterProvider<T>.GetInstance ("Id").InvokeGet (item);
-			list.RemoveAll (x => equalityComparator(x, "Id", id));
-			return dataSource.setDataSource (list);
+			return dataSource.add (item);
         }
 
 	}
