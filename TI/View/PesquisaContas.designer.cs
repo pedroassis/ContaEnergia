@@ -29,8 +29,12 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PesquisaContas));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblAte = new System.Windows.Forms.Label();
+            this.lblDe = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.rbAgua = new System.Windows.Forms.RadioButton();
             this.rbEnergia = new System.Windows.Forms.RadioButton();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
@@ -63,6 +67,10 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.lblAte);
+            this.panel1.Controls.Add(this.lblDe);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.progressBar1);
             this.panel1.Controls.Add(this.rbAgua);
             this.panel1.Controls.Add(this.rbEnergia);
             this.panel1.Controls.Add(this.pictureBox4);
@@ -77,8 +85,48 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1032, 531);
+            this.panel1.Size = new System.Drawing.Size(1032, 554);
             this.panel1.TabIndex = 0;
+            // 
+            // lblAte
+            // 
+            this.lblAte.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAte.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblAte.Location = new System.Drawing.Point(794, 15);
+            this.lblAte.Name = "lblAte";
+            this.lblAte.Size = new System.Drawing.Size(149, 20);
+            this.lblAte.TabIndex = 30;
+            this.lblAte.Text = "10000000000";
+            // 
+            // lblDe
+            // 
+            this.lblDe.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDe.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblDe.Location = new System.Drawing.Point(619, 15);
+            this.lblDe.Name = "lblDe";
+            this.lblDe.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lblDe.Size = new System.Drawing.Size(156, 20);
+            this.lblDe.TabIndex = 29;
+            this.lblDe.Text = "100000";
+            this.lblDe.Click += new System.EventHandler(this.lblDe_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(770, 15);
+            this.label1.Name = "label1";
+            this.label1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label1.Size = new System.Drawing.Size(27, 20);
+            this.label1.TabIndex = 27;
+            this.label1.Text = "de";
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(12, 530);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(1005, 16);
+            this.progressBar1.TabIndex = 1;
             // 
             // rbAgua
             // 
@@ -134,9 +182,9 @@
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(312, 496);
+            this.button3.Location = new System.Drawing.Point(369, 496);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(245, 29);
+            this.button3.Size = new System.Drawing.Size(235, 29);
             this.button3.TabIndex = 22;
             this.button3.Text = "Pesquisar dados de consumidor";
             this.button3.UseVisualStyleBackColor = true;
@@ -145,9 +193,9 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(563, 496);
+            this.button1.Location = new System.Drawing.Point(610, 496);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(224, 29);
+            this.button1.Size = new System.Drawing.Size(199, 29);
             this.button1.TabIndex = 21;
             this.button1.Text = "Lançar novo valor de conta";
             this.button1.UseVisualStyleBackColor = true;
@@ -156,9 +204,9 @@
             // addNew
             // 
             this.addNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addNew.Location = new System.Drawing.Point(793, 496);
+            this.addNew.Location = new System.Drawing.Point(815, 496);
             this.addNew.Name = "addNew";
-            this.addNew.Size = new System.Drawing.Size(224, 29);
+            this.addNew.Size = new System.Drawing.Size(202, 29);
             this.addNew.TabIndex = 20;
             this.addNew.Text = "Cadastrar novo consumidor";
             this.addNew.UseVisualStyleBackColor = true;
@@ -169,7 +217,7 @@
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button7.Location = new System.Drawing.Point(12, 496);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(75, 29);
+            this.button7.Size = new System.Drawing.Size(59, 29);
             this.button7.TabIndex = 19;
             this.button7.Text = "Voltar";
             this.button7.UseVisualStyleBackColor = true;
@@ -187,14 +235,14 @@
             // 
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.idConta,
@@ -306,8 +354,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(1032, 531);
+            this.ClientSize = new System.Drawing.Size(1032, 554);
+            this.ControlBox = false;
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PesquisaContas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -348,5 +398,9 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.RadioButton rbAgua;
         private System.Windows.Forms.RadioButton rbEnergia;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label lblAte;
+        private System.Windows.Forms.Label lblDe;
+        private System.Windows.Forms.Label label1;
     }
 }
