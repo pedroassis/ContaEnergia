@@ -88,11 +88,11 @@ namespace TI.DataSource
 				c.Add (t);
 			}
 
-			var coresCount = Environment.ProcessorCount;
-
-			while(coresCount > 0){
-				coresCount--;
-				Task.Run (() => {
+//			var coresCount = Environment.ProcessorCount;
+//
+//			while(coresCount > 0){
+//				coresCount--;
+//				Task.Run (() => {
 
 					while(!c.IsCompleted){
 						T obj = c.Take();
@@ -102,8 +102,8 @@ namespace TI.DataSource
 						}
 					}
 
-				});
-			}
+//				});
+//			}
 
 			return true;
 		}
@@ -129,9 +129,9 @@ namespace TI.DataSource
                     writer.Write(obj);
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                
+				Console.WriteLine (e);
                 
             }
 			

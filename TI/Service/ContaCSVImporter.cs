@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Linq;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
@@ -17,28 +17,36 @@ namespace TI.Service
 		private Int32 contaLastId;
 		private Int32 pessoaLastId;
 
+		private Dictionary<String, Pessoa> consumidores = new Dictionary<string, Pessoa> ();
+
 		private List<Pessoa> pessoas = new List<Pessoa>();
+
+		private List<Conta> contas;
+
+		public ContaCSVImporter(){
+			contas = contaDataSource.getAll();
+		}
 
 		public void Import(String[] lines, String[] columns, Action<Conta> notifier){
 
+			new Thread (new ThreadStart (() => doImport(lines, columns, notifier))).Start();
+		}
+
+		private void doImport(String[] lines, String[] columns, Action<Conta> notifier){
 			BlockingCollection<String> c = new BlockingCollection<String> (lines.Length);
 
 			foreach(String t in lines){
 				c.Add (t);
 			}
 
-			var coresCount = Environment.ProcessorCount;
-
-			while(coresCount > 0){
-				coresCount--;
-				Task.Run (() => {
-					while(!c.IsCompleted){
-						String line = c.Take();
-						Conta ct = ParseLine(line, columns);
-						contaDataSource.add(ct);
-						notifier(ct);
-					}
-				});
+			try {
+				while(!c.IsCompleted){
+					String line = c.Take();
+					Conta ct = ParseLine(line, columns);
+					notifier(ct);
+				}
+			} catch(Exception e){
+				Console.WriteLine(e.StackTrace);
 			}
 		}
 
@@ -57,7 +65,7 @@ namespace TI.Service
 
 		private Int32 getConsumidor(String cell){
 			Pessoa pessoa = new Pessoa();
-			pessoa.Id = getLastIDPessoa(cell);
+			pessoa.Id = consumidores.ContainsKey(cell) ? consumidores[cell].Id : getLastIDPessoa(cell);
 			if (cell.Contains("/"))
 			{                    
 				pessoa.Documento = cell;
@@ -68,12 +76,13 @@ namespace TI.Service
 				pessoa.Documento = cell;
 				pessoa.Tipo = "FISICA";
 			}
-			pessoaDataSource.add(pessoa);
+//			pessoaDataSource.add(pessoa);
+
 			return pessoa.Id;
 		}
 
 		private Int32 getLastIDConta(){
-			contaLastId = contaLastId == 0 && contaDataSource.getAll().Any () ? contaDataSource.getAll().Max(x => x.Id) + 1 : contaLastId + 1;
+			contaLastId = contaLastId == 0 && contas.Any () ? contas.Max(x => x.Id) + 1 : contaLastId + 1;
 			return contaLastId;
 		}
 

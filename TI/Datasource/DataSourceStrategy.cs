@@ -24,16 +24,20 @@ namespace TI.DataSource
 
         private static List<T> cachedDataSource;
 
-        private Func<T, String, Object, Boolean> equalityComparator = (listObject, propName, toCompare) =>
-        {
-            Object obj = PropertyCallAdapterProvider<T>.GetInstance(propName).InvokeGet(listObject);
-            return obj != null && obj.Equals(toCompare);
-        };
+        private Func<T, String, Object, Boolean> equalityComparator = (listObject, propName, toCompare) => {
+			Object obj = listObject != null ? PropertyCallAdapterProvider<T>.GetInstance (propName).InvokeGet (listObject) : 0;
+			return listObject != null && obj != null && obj.Equals (toCompare);
+		};
 
         public List<T> getAll()
         {
             return cachedDataSource;
-        }
+		}
+
+		public List<T> getAll(bool cached)
+		{
+			return cached ? cachedDataSource : cachedDataSource = dataSource.getDataSource<T>();
+		}
 
         public T getById(Object id)
         {
@@ -76,34 +80,11 @@ namespace TI.DataSource
         public Boolean addAll(List<T> list)
         {
             cachedDataSource.AddRange(list);
-            Dictionary<Object, T> result = new Dictionary<Object, T>(list.Count);
-            foreach (T item in cachedDataSource)
-            {
-                Object id = PropertyCallAdapterProvider<T>.GetInstance("Id").InvokeGet(item);
-                result[id] = item;
-            }
-            cachedDataSource.Clear();
-            cachedDataSource.AddRange(result.Values.ToList());
             return dataSource.setDataSource(cachedDataSource);
         }
 
         public Boolean add(T itemToAdd)
         {
-            Dictionary<Object, T> result = new Dictionary<Object, T>(cachedDataSource.Count);
-
-            Parallel.ForEach(cachedDataSource, item =>
-              {
-
-
-                  Object id = PropertyCallAdapterProvider<T>.GetInstance("Id").InvokeGet(item);
-                  result[id] = item;
-              });
-            
-            Object idToAdd = PropertyCallAdapterProvider<T>.GetInstance("Id").InvokeGet(itemToAdd);
-            result[idToAdd] = itemToAdd;
-            cachedDataSource.Clear();
-            cachedDataSource.AddRange(result.Values.ToList());
-
             return dataSource.add(itemToAdd);
 
         }
