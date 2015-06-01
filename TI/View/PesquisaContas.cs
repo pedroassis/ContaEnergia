@@ -25,25 +25,36 @@ namespace TI.View
         private void load(List<Conta> contas)
         {
             
-            contas.OrderBy(conta => conta.Id).ToList().ForEach(conta =>
-            {
-                Pessoa pessoa = pessoaDataSource.getById(conta.Consumidor);
-				if(pessoa == null){
-						Console.WriteLine("Conta nao possui Consumidor. Id Conta: " + conta.Id);
-				} else
-                dataGridView1.Rows.Add(new string[] { 
-                    conta.Id.ToString(),
-                    pessoa.Nome,
-                    pessoa.Tipo,
-                    conta.LeituraAnterior.ToString(),
-                    conta.LeituraAtual.ToString(),
-                    contaService.getTotalSemImposto(conta).ToString(),
-                    contaService.getImposto(conta).ToString(),
-                    contaService.getTotal(conta).ToString()
-                });
-
-            });
+			contas.OrderBy (conta => conta.Id).ToList ().ForEach (addGrid);
+            updateSize();
         }
+
+        public void updateSize()
+        {
+            String tipo = rbAgua.Checked ? "AGUA" : "ENERGIA";
+            
+            lblDe.Text = dataGridView1.Rows.Count.ToString();
+            lblAte.Text = contaDataSource.find("TipoConta", tipo).Count.ToString();
+        }
+
+		public void addGrid(Conta conta)
+		{
+			Pessoa pessoa = pessoaDataSource.getById(conta.Consumidor);
+			if(pessoa == null){
+				Console.WriteLine("Conta nao possui Consumidor. Id Conta: " + conta.Id);
+			} else
+				dataGridView1.Rows.Add(new string[] { 
+					conta.Id.ToString(),
+					pessoa.Nome,
+					pessoa.Tipo,
+					conta.LeituraAnterior.ToString(),
+					conta.LeituraAtual.ToString(),
+					contaService.getTotalSemImposto(conta).ToString(),
+					contaService.getImposto(conta).ToString(),
+					contaService.getTotal(conta).ToString()
+				});
+
+		}
         
 
         public PesquisaContas()
@@ -97,6 +108,8 @@ namespace TI.View
         private Strategy<Pessoa> pessoaDataSource = new DataSourceStrategy<Pessoa>();
         private Strategy<Conta> contaDataSource = new DataSourceStrategy<Conta>();
 		private ContaCSVImporter importer = new ContaCSVImporter();
+		private String[] columns = new string[] { "TipoConta", "Consumidor", "Data", "LeituraAnterior", "LeituraAtual" };
+
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
@@ -160,6 +173,17 @@ namespace TI.View
             
         }
 
+        private void increase()
+        {
+            updateSize();
+            
+            if (progressBar1.Value == 100)
+                progressBar1.Visible = false;
+            else
+                progressBar1.Value += 1;    
+
+        }
+
         private void pictureBox4_Click(object sender, EventArgs e)
         {
             
@@ -168,9 +192,15 @@ namespace TI.View
             openFileDialog1.ShowDialog();
 
 
-            List<Conta> c = importer.Import(openFileDialog1.FileName, new string[] { "TipoConta", "Consumidor", "Data", "LeituraAnterior", "LeituraAtual" });
+
+			List<Conta> c = importer.Import(openFileDialog1.FileName, columns, (conta) => {
+				addGrid(conta);
+				increase();
+			});
+			//List<Conta> c = importer.Import("/Users/ac-passis/Downloads/contasV2.txt", new string[] { "TipoConta", "Consumidor", "Data", "LeituraAnterior", "LeituraAtual" });
 			contaDataSource.addAll (c);
-            load();
+			load ();
+
         }
     }
 }
