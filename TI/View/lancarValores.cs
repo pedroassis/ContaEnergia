@@ -109,6 +109,8 @@ namespace TI.View
         {
             conta.LeituraAtual = int.Parse(consumoAtual.Text);
 
+            conta.TipoConta = tipoConta.Text == "Agua" ? "AGUA" : "ENERGIA";
+
             valorContaAtual.Text = getService(conta).getTotal(conta).ToString();
         }
 
