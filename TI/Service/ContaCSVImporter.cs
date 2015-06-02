@@ -46,7 +46,6 @@ namespace TI.Service
 					contaDataSource.add(ct);
 					notifier(ct);
 				}
-				pessoaDataSource.addAll(pessoas);
 				pessoas = new List<Pessoa>();
 			} catch(Exception e){
 				Console.WriteLine(e.StackTrace);
@@ -79,7 +78,7 @@ namespace TI.Service
 				pessoa.Documento = cell;
 				pessoa.Tipo = "FISICA";
 			}
-//			pessoaDataSource.add(pessoa);
+			pessoaDataSource.add(pessoa);
 
 			return pessoa.Id;
 		}

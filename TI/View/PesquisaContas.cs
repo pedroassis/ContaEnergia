@@ -20,6 +20,7 @@ namespace TI.View
         private void load()
         {
             String tipo = rbAgua.Checked ? "AGUA" : "ENERGIA";
+            contaDataSource.getAll(true);
             load(contaDataSource.find("TipoConta", tipo));
         }
         private void load(List<Conta> contas)
@@ -27,14 +28,8 @@ namespace TI.View
 			dataGridView1.Rows.Clear ();
             contas.OrderBy(conta => conta.Id).ToList().ForEach(conta => { 
                 Pessoa pessoa = pessoaDataSource.getById(conta.Consumidor);
-                if (pessoa == null)
-                {
-                    Console.WriteLine("Conta nao possui Consumidor. Id Conta: " + conta.Id);
-                }
-                else
-                {
-                    addGrid(conta, pessoa);
-                }
+                Console.WriteLine("Conta nao possui Consumidor. Id Conta: " + conta.Id);
+                addGrid(conta, pessoa);
             });
             updateSize();
         }

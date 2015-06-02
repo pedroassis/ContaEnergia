@@ -85,6 +85,7 @@ namespace TI.DataSource
 
         public Boolean add(T itemToAdd)
         {
+            cachedDataSource.Add(itemToAdd);
             return dataSource.add(itemToAdd);
 
         }

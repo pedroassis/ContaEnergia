@@ -88,6 +88,8 @@ namespace TI.View
                 txtNome.Text = pessoa.Nome;
                 txtTipo.Text = pessoa.Tipo;
                 List<Conta> contas = ContaDataSource.find("Consumidor", pessoa.Id);
+                contas
+                    .RemoveAll(cot => (tipoConta.Text == "Agua" ? "AGUA" : "ENERGIA") == cot.TipoConta);
                 if (contas.Count != 0)
                 {
                     Conta contaAnterior = contas.Last();
@@ -162,7 +164,8 @@ namespace TI.View
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            conta.TipoConta = tipoConta.SelectedText == "Agua" ? "AGUA" : "ENERGIA";
+            pictureBox1_Click(null, null);
         }
 
         private void consumoAtual_TextChanged(object sender, EventArgs e)
