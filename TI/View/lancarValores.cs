@@ -87,9 +87,8 @@ namespace TI.View
                 conta.Consumidor = pessoa.Id;
                 txtNome.Text = pessoa.Nome;
                 txtTipo.Text = pessoa.Tipo;
-                List<Conta> contas = ContaDataSource.find("Consumidor", pessoa.Id);
-                contas
-                    .RemoveAll(cot => (tipoConta.Text == "Agua" ? "AGUA" : "ENERGIA") == cot.TipoConta);
+                List<Conta> contas = ContaDataSource.find("Consumidor", pessoa.Id)
+					.Where(cot => (tipoConta.Text == "Agua" ? "AGUA" : "ENERGIA") == cot.TipoConta).ToList();
                 if (contas.Count != 0)
                 {
                     Conta contaAnterior = contas.Last();
