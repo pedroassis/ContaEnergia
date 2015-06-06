@@ -24,6 +24,8 @@ namespace TI.DataSource
         Boolean addAll(List<T> list);
 
         Boolean add(T item);
+
+		List<T> findContains (String propertyName, String valueField);
 	}
 }
 
