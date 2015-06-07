@@ -27,7 +27,7 @@ namespace TI
             p.Id = lista.Count == 0 ? 1 : lista.Max(pe => pe.Id) + 1;
             p.Nome = txtNome.Text;
             p.Documento = rbFisica.Checked ? txtCPF.Text : txtCNPJ.Text;
-            p.Tipo = rbFisica.Checked ? "FÍSICA" : "COMERCIAL";
+            p.Tipo = rbFisica.Checked ? "FISICA" : "JURIDICA";
 
             pessoaDataSource.add(p);
             button2_Click(null, null);
