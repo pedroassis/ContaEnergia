@@ -46,6 +46,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.searchBar = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.mediaGeral = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel2.SuspendLayout();
@@ -55,6 +56,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.mediaGeral);
             this.panel1.Controls.Add(this.pictureBox2);
             this.panel1.Controls.Add(this.radioButton2);
             this.panel1.Controls.Add(this.radioButton1);
@@ -93,13 +95,13 @@
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(123, 20);
             this.radioButton2.TabIndex = 17;
-            this.radioButton2.TabStop = true;
             this.radioButton2.Text = "Pessoa Jurídica";
             this.radioButton2.UseVisualStyleBackColor = true;
             // 
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
             this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButton1.Location = new System.Drawing.Point(619, 15);
             this.radioButton1.Name = "radioButton1";
@@ -244,6 +246,16 @@
             this.label2.Text = "Filtrar por:";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
+            // mediaGeral
+            // 
+            this.mediaGeral.Location = new System.Drawing.Point(298, 502);
+            this.mediaGeral.Name = "mediaGeral";
+            this.mediaGeral.Size = new System.Drawing.Size(116, 29);
+            this.mediaGeral.TabIndex = 19;
+            this.mediaGeral.Text = "Média Geral";
+            this.mediaGeral.UseVisualStyleBackColor = true;
+            this.mediaGeral.Click += new System.EventHandler(this.mediaGeral_Click);
+            // 
             // PesquisaConsumidor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -286,5 +298,6 @@
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Button mediaGeral;
     }
 }
