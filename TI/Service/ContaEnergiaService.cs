@@ -33,12 +33,12 @@ namespace TI.Service
 		}
 
 		public double getImposto(Conta conta){
-			return pessoaStrategy.getById(conta.Consumidor).Tipo == "COMERCIAL" ? IMPOSTO_COMERCIAL : IMPOSTO_RESIDECIAL;
+			return pessoaStrategy.getById(conta.Consumidor).Tipo == "JURIDICA" ? IMPOSTO_COMERCIAL : IMPOSTO_RESIDECIAL;
 		}
 
 		public double getTarifa(Conta conta){
             Pessoa consumidor = pessoaStrategy.getById(conta.Consumidor);
-            return consumidor.Tipo == "COMERCIAL" ? TARIFA_COMERCIAL : TARIFA_RESIDECIAL;
+            return consumidor.Tipo == "JURIDICA" ? TARIFA_COMERCIAL : TARIFA_RESIDECIAL;
 		}
 
     }
