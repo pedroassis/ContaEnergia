@@ -30,7 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PesquisaConsumidor));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.mediaGeral = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
@@ -46,7 +48,6 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.searchBar = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.mediaGeral = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel2.SuspendLayout();
@@ -73,6 +74,16 @@
             this.panel1.Size = new System.Drawing.Size(872, 543);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // mediaGeral
+            // 
+            this.mediaGeral.Location = new System.Drawing.Point(298, 502);
+            this.mediaGeral.Name = "mediaGeral";
+            this.mediaGeral.Size = new System.Drawing.Size(116, 29);
+            this.mediaGeral.TabIndex = 19;
+            this.mediaGeral.Text = "Média Geral";
+            this.mediaGeral.UseVisualStyleBackColor = true;
+            this.mediaGeral.Click += new System.EventHandler(this.mediaGeral_Click);
             // 
             // pictureBox2
             // 
@@ -146,13 +157,13 @@
             // dataGridView
             // 
             this.dataGridView.AllowUserToDeleteRows = false;
-            this.dataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
+            this.dataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenHorizontal;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Black;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -165,7 +176,15 @@
             this.dataGridView.Location = new System.Drawing.Point(0, 0);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
-            this.dataGridView.RowHeadersVisible = false;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridView.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.Empty;
             this.dataGridView.ShowCellErrors = false;
             this.dataGridView.Size = new System.Drawing.Size(848, 436);
             this.dataGridView.TabIndex = 1;
@@ -245,16 +264,6 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Filtrar por:";
             this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
-            // mediaGeral
-            // 
-            this.mediaGeral.Location = new System.Drawing.Point(298, 502);
-            this.mediaGeral.Name = "mediaGeral";
-            this.mediaGeral.Size = new System.Drawing.Size(116, 29);
-            this.mediaGeral.TabIndex = 19;
-            this.mediaGeral.Text = "Média Geral";
-            this.mediaGeral.UseVisualStyleBackColor = true;
-            this.mediaGeral.Click += new System.EventHandler(this.mediaGeral_Click);
             // 
             // PesquisaConsumidor
             // 

@@ -26,11 +26,19 @@ namespace TI.View
         {
             InitializeComponent();
 
+            this.dataGridView.RowsDefaultCellStyle.BackColor = Color.White;
+            this.dataGridView.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
+
+            dataGridView.Columns[0].Resizable =DataGridViewTriState.False;
+            dataGridView.Columns[1].Resizable = DataGridViewTriState.False;
+            dataGridView.Columns[2].Resizable = DataGridViewTriState.False;
+            dataGridView.Columns[3].Resizable = DataGridViewTriState.False;
+
+
+
+
             pessoaDataSource.getAll().OrderBy(pessoa => pessoa.Id).ToList().ForEach(pessoa => dataGridView.Rows.Add(new string[] { 
-              pessoa.Id.ToString(), pessoa.Nome, pessoa.Tipo, pessoa.Documento }));
-
-
-
+            pessoa.Id.ToString(), pessoa.Nome, pessoa.Tipo, pessoa.Documento }));
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -47,7 +55,7 @@ namespace TI.View
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -131,7 +139,7 @@ namespace TI.View
             searchBar.Text = "";
             dataGridView.Rows.Clear(); 
             pessoaDataSource.getAll().OrderBy(pessoa => pessoa.Id).ToList().ForEach(pessoa => dataGridView.Rows.Add(new string[] { 
-               pessoa.Id.ToString(), pessoa.Nome, pessoa.Tipo, pessoa.Documento }));
+            pessoa.Id.ToString(), pessoa.Nome, pessoa.Tipo, pessoa.Documento }));
         }
 
         IContaService energiaService = new ContaEnergiaService();
@@ -160,10 +168,13 @@ namespace TI.View
             double  consumoMedioAgua = consumoMedio(contasAgua);
             double consumoMedioEnergia = consumoMedio(contasEnergia);
 
+            MessageBox.Show(null, "Conta de água: R$" +consumoMedioAgua.ToString() + "/nConta de energia:" + consumoMedioAgua.ToString(), "Valor médio das contas", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            
+        }
 
-
+        private void getRowValue_Click(object sender, EventArgs e)
+        {            
+           
         }
     }
 }

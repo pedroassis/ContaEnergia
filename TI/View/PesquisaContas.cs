@@ -44,13 +44,13 @@ namespace TI.View
             {
                 progressBar1.Invoke(new MethodInvoker(delegate
                 {
-                    lblDe.Text = (dataGridView1.Rows.Count-1).ToString();
+                    lblDe.Text = (dataGridView1.Rows.Count).ToString();
                     lblAte.Text = contaDataSource.find("TipoConta", tipo).Count.ToString();
                 }));
             }
             else
             {
-                lblDe.Text = (dataGridView1.Rows.Count-1).ToString();
+                lblDe.Text = (dataGridView1.Rows.Count).ToString();
                 lblAte.Text = contaDataSource.find("TipoConta", tipo).Count.ToString();
             }
             
@@ -122,6 +122,13 @@ namespace TI.View
         private void PesquisaConsumidor_Load(object sender, EventArgs e)
         {
 
+            this.dataGridView1.RowsDefaultCellStyle.BackColor = Color.White;
+            this.dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
+
+            dataGridView1.Columns[0].Resizable = DataGridViewTriState.False;
+            dataGridView1.Columns[1].Resizable = DataGridViewTriState.False;
+            dataGridView1.Columns[2].Resizable = DataGridViewTriState.False;
+            dataGridView1.Columns[3].Resizable = DataGridViewTriState.False;
         }
 
 
@@ -251,6 +258,11 @@ namespace TI.View
         }
 
         private void lblDe_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void progressBar1_Click(object sender, EventArgs e)
         {
 
         }
