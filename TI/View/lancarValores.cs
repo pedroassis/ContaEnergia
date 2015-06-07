@@ -127,7 +127,7 @@ namespace TI.View
             
             List<Conta> lista = ContaDataSource.getAll();
             conta.Id = lista.Count==0 ? 1 : lista.Last().Id + 1;
-            conta.TipoConta = tipoConta.SelectedText.ToUpper();
+            conta.TipoConta = tipoConta.Text.ToUpper();
             ContaDataSource.add(conta);
             conta = new Conta();
             txtNome.Text = "";
@@ -165,7 +165,7 @@ namespace TI.View
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            conta.TipoConta = tipoConta.SelectedText == "Agua" ? "AGUA" : "ENERGIA";
+            conta.TipoConta = tipoConta.Text == "Agua" ? "AGUA" : "ENERGIA";
             pictureBox1_Click(null, null);
         }
 

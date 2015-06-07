@@ -19,6 +19,7 @@ namespace TI.View
     {
         private void load()
         {
+            dataGridView1.Rows.Clear();
             String tipo = rbAgua.Checked ? "AGUA" : "ENERGIA";
             contaDataSource.getAll(true);
             load(contaDataSource.find("TipoConta", tipo));
@@ -223,7 +224,7 @@ namespace TI.View
             openFileDialog1.Title = "Select a Cursor File";
             openFileDialog1.ShowDialog();
             imported = 0;
-
+            dataGridView1.Rows.Clear();
             String[] lines = File.ReadAllLines(openFileDialog1.FileName);
 
             importSize = lines.Length;
