@@ -24,7 +24,7 @@ namespace TI.Service
             double consumoFaixa = maxConsumoFaixa - faixa.Minimo;
             consumoFaixa = consumoFaixa >= 0 ? consumoFaixa : 0;
 
-            return consumoFaixa * faixa.Valor + faixa.ValorFixo;
+            return consumoFaixa * faixa.Valor;
         }
 
     }
