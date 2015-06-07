@@ -73,6 +73,7 @@ namespace TI.View
         private Strategy<Conta> ContaDataSource = new DataSourceStrategy<Conta>();
         private void pictureBox1_Click(object sender, EventArgs e)
         {
+            button2_Click(null, null);
             Pessoa pessoa;
 
             try {
@@ -85,6 +86,7 @@ namespace TI.View
             if (pessoa != null && pessoa.Id != null)
             {
                 conta.Consumidor = pessoa.Id;
+                conta.TipoConta = tipoConta.Text == "Agua" ? "AGUA" : "ENERGIA";
                 txtNome.Text = pessoa.Nome;
                 txtTipo.Text = pessoa.Tipo;
                 List<Conta> contas = ContaDataSource.find("Consumidor", pessoa.Id)
@@ -149,7 +151,6 @@ namespace TI.View
             valorContaAtual.Text = "";
             consumoAnterior.Text = "";
             consumoAtual.Text = "";
-            id.Text = "";
             id.Focus();
         }
 
