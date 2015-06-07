@@ -17,6 +17,7 @@ namespace TI.View
 {
     public partial class PesquisaContas : Form
     {
+        //Quanto variou minha conta, em reais e em consumo, entre dois meses escolhidos?
         private void load()
         {
             dataGridView1.Rows.Clear();
@@ -27,7 +28,7 @@ namespace TI.View
         private void load(List<Conta> contas)
         {
 			dataGridView1.Rows.Clear ();
-            contas.OrderBy(conta => conta.Id).ToList().ForEach(conta => { 
+            contas.OrderBy(conta => conta.Id).Take(100).ToList().ForEach(conta => { 
                 Pessoa pessoa = pessoaDataSource.getById(conta.Consumidor);
                 Console.WriteLine("Conta nao possui Consumidor. Id Conta: " + conta.Id);
                 addGrid(conta, pessoa);
@@ -43,13 +44,13 @@ namespace TI.View
             {
                 progressBar1.Invoke(new MethodInvoker(delegate
                 {
-                    lblDe.Text = dataGridView1.Rows.Count.ToString();
+                    lblDe.Text = (dataGridView1.Rows.Count-1).ToString();
                     lblAte.Text = contaDataSource.find("TipoConta", tipo).Count.ToString();
                 }));
             }
             else
             {
-                lblDe.Text = dataGridView1.Rows.Count.ToString();
+                lblDe.Text = (dataGridView1.Rows.Count-1).ToString();
                 lblAte.Text = contaDataSource.find("TipoConta", tipo).Count.ToString();
             }
             
@@ -67,13 +68,16 @@ namespace TI.View
 					pessoa == null ? "" : pessoa.Tipo,
 					conta.LeituraAnterior.ToString(),
 					conta.LeituraAtual.ToString(),
-					contaService.getTotalSemImposto(conta).ToString(),
-					contaService.getImposto(conta).ToString(),
-					contaService.getTotal(conta).ToString()
+					getService(conta).getTotalSemImposto(conta).ToString(),
+					getService(conta).getImposto(conta).ToString(),
+					getService(conta).getTotal(conta).ToString()
 				});
 
         }
-
+        public IContaService getService(Conta conta)
+        {
+            return conta.TipoConta == "AGUA" ? aguaService : energiaService;
+        }
 
         public PesquisaContas()
         {
@@ -122,7 +126,9 @@ namespace TI.View
 
 
 
-        IContaService contaService = new ContaAguaService();
+        private IContaService aguaService = new ContaAguaService();
+        private IContaService energiaService = new ContaEnergiaService();
+
         private Strategy<Pessoa> pessoaDataSource = new DataSourceStrategy<Pessoa>();
         private Strategy<Conta> contaDataSource = new DataSourceStrategy<Conta>();
         private ContaCSVImporter importer = new ContaCSVImporter();
@@ -140,7 +146,8 @@ namespace TI.View
             else
             {
                 String tipo = rbAgua.Checked ? "AGUA" : "ENERGIA";
-                List<Pessoa> lista = pessoaDataSource.find("Nome", searchBar.Text);
+                List<Pessoa> lista = pessoaDataSource.findContains("Nome", searchBar.Text);
+                lista.AddRange(pessoaDataSource.findContains("Documento", searchBar.Text));
                 List<Conta> contas = new List<Conta>();
                 lista.ForEach(pessoa => contas.AddRange(
                     contaDataSource
