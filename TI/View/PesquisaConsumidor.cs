@@ -8,12 +8,20 @@ using TI.DataSource;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TI.Entidade;
+using TI.Service;
 
 namespace TI.View
 {
     public partial class PesquisaConsumidor : Form
     {
+
+        //TODO messageBox exibindo o resultado.
+        //TODO Em que mês houve a conta de maior valor, em reais e em consumo?
+
         private Strategy<Pessoa> pessoaDataSource = new DataSourceStrategy<Pessoa>();
+        private Strategy<Conta> contaDataSource = new DataSourceStrategy<Conta>();
+
         public PesquisaConsumidor()
         {
             InitializeComponent();
@@ -98,15 +106,17 @@ namespace TI.View
             }
             else
             {
-                List<Pessoa> lista = pessoaDataSource.find("Documento", searchBar.Text);
+                List<Pessoa> lista = pessoaDataSource.findContains("Documento", searchBar.Text);
+                lista.AddRange(pessoaDataSource.findContains("Nome", searchBar.Text));
+                    
                 if (radioButton1.Checked || radioButton2.Checked)
                 {
                     string Tipo = radioButton1.Checked ? "FISICA" : "JURIDICA";
                     lista = lista.FindAll(pessoa => pessoa.Tipo==Tipo);
-
+                    
                 }
                 
-                lista.ForEach(pessoa => dataGridView.Rows.Add(new string[] { 
+                lista.Take(100).ToList().ForEach(pessoa => dataGridView.Rows.Add(new string[] { 
                 pessoa.Id.ToString(), pessoa.Nome, pessoa.Tipo, pessoa.Documento }));
             }
         }
@@ -122,6 +132,38 @@ namespace TI.View
             dataGridView.Rows.Clear(); 
             pessoaDataSource.getAll().OrderBy(pessoa => pessoa.Id).ToList().ForEach(pessoa => dataGridView.Rows.Add(new string[] { 
                pessoa.Id.ToString(), pessoa.Nome, pessoa.Tipo, pessoa.Documento }));
+        }
+
+        IContaService energiaService = new ContaEnergiaService();
+        IContaService aguaService = new ContaAguaService();
+
+        public IContaService getService(Conta conta)
+        {
+            return conta.TipoConta == "AGUA" ? aguaService : energiaService;
+        }
+
+
+        private double consumoMedio(List<Conta> contas){
+
+            double somaConsumo = contas.Sum(conta => getService(conta).getConsumo(conta));
+            return somaConsumo / contas.Count;            
+        }
+
+        private void mediaGeral_Click(object sender, EventArgs e)
+        {
+            String idString = dataGridView.SelectedRows[0].Cells[0].Value.ToString();
+            int id = int.Parse(idString);
+            List<Conta> contas = contaDataSource.find("Consumidor", id);
+            List<Conta> contasAgua  = contas.Where( conta => conta.TipoConta == "AGUA").ToList();
+            List<Conta> contasEnergia = contas.Where(conta => conta.TipoConta == "ENERGIA").ToList();
+
+            double  consumoMedioAgua = consumoMedio(contasAgua);
+            double consumoMedioEnergia = consumoMedio(contasEnergia);
+
+
+            
+
+
         }
     }
 }
