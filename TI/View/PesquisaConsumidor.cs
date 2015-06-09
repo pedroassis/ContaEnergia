@@ -168,7 +168,7 @@ namespace TI.View
             double  consumoMedioAgua = consumoMedio(contasAgua);
             double consumoMedioEnergia = consumoMedio(contasEnergia);
 
-            MessageBox.Show(null, "Conta de água: R$" +consumoMedioAgua.ToString() + "/nConta de energia:" + consumoMedioAgua.ToString(), "Valor médio das contas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(null, "Conta de água: R$" +consumoMedioAgua + "\nConta de energia:" + consumoMedioAgua.ToString(), "Valor médio das contas", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
 
