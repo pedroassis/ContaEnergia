@@ -29,7 +29,7 @@ namespace TI.View
             this.dataGridView.RowsDefaultCellStyle.BackColor = Color.White;
             this.dataGridView.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
 
-            dataGridView.Columns[0].Resizable =DataGridViewTriState.False;
+            dataGridView.Columns[0].Resizable = DataGridViewTriState.False;
             dataGridView.Columns[1].Resizable = DataGridViewTriState.False;
             dataGridView.Columns[2].Resizable = DataGridViewTriState.False;
             dataGridView.Columns[3].Resizable = DataGridViewTriState.False;
@@ -55,7 +55,7 @@ namespace TI.View
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -81,7 +81,7 @@ namespace TI.View
 
         private void button3_Click_1(object sender, EventArgs e)
         {
-            LancarValores valores  = new LancarValores();
+            LancarValores valores = new LancarValores();
             this.Close();
             valores.Show();
         }
@@ -105,7 +105,7 @@ namespace TI.View
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            
+
             dataGridView.Rows.Clear();
             if (searchBar.Text == "")
             {
@@ -116,14 +116,14 @@ namespace TI.View
             {
                 List<Pessoa> lista = pessoaDataSource.findContains("Documento", searchBar.Text);
                 lista.AddRange(pessoaDataSource.findContains("Nome", searchBar.Text));
-                    
+
                 if (radioButton1.Checked || radioButton2.Checked)
                 {
                     string Tipo = radioButton1.Checked ? "FISICA" : "JURIDICA";
-                    lista = lista.FindAll(pessoa => pessoa.Tipo==Tipo);
-                    
+                    lista = lista.FindAll(pessoa => pessoa.Tipo == Tipo);
+
                 }
-                
+
                 lista.Take(100).ToList().ForEach(pessoa => dataGridView.Rows.Add(new string[] { 
                 pessoa.Id.ToString(), pessoa.Nome, pessoa.Tipo, pessoa.Documento }));
             }
@@ -137,7 +137,7 @@ namespace TI.View
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             searchBar.Text = "";
-            dataGridView.Rows.Clear(); 
+            dataGridView.Rows.Clear();
             pessoaDataSource.getAll().OrderBy(pessoa => pessoa.Id).ToList().ForEach(pessoa => dataGridView.Rows.Add(new string[] { 
             pessoa.Id.ToString(), pessoa.Nome, pessoa.Tipo, pessoa.Documento }));
         }
@@ -151,30 +151,41 @@ namespace TI.View
         }
 
 
-        private double consumoMedio(List<Conta> contas){
+        private double consumoMedio(List<Conta> contas)
+        {
 
             double somaConsumo = contas.Sum(conta => getService(conta).getConsumo(conta));
-            return somaConsumo / contas.Count;            
+            return somaConsumo == 0 ? 0 : somaConsumo / contas.Count;
         }
 
         private void mediaGeral_Click(object sender, EventArgs e)
         {
             String idString = dataGridView.SelectedRows[0].Cells[0].Value.ToString();
-            int id = int.Parse(idString);
-            List<Conta> contas = contaDataSource.find("Consumidor", id);
-            List<Conta> contasAgua  = contas.Where( conta => conta.TipoConta == "AGUA").ToList();
-            List<Conta> contasEnergia = contas.Where(conta => conta.TipoConta == "ENERGIA").ToList();
+            if (idString != null)
+            {
+                int id = int.Parse(idString);
+                List<Conta> contas = contaDataSource.find("Consumidor", id);
+                List<Conta> contasAgua = contas.Where(conta => conta.TipoConta == "AGUA").ToList();
+                List<Conta> contasEnergia = contas.Where(conta => conta.TipoConta == "ENERGIA").ToList();
 
-            double  consumoMedioAgua = consumoMedio(contasAgua);
-            double consumoMedioEnergia = consumoMedio(contasEnergia);
 
-            MessageBox.Show(null, "Conta de água: R$" +consumoMedioAgua + "\nConta de energia:" + consumoMedioAgua.ToString(), "Valor médio das contas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                double consumoMedioAgua = consumoMedio(contasAgua);
+                double consumoMedioEnergia = consumoMedio(contasEnergia);
+
+
+                MessageBox.Show(null, "Conta de água: R$" + consumoMedioAgua + "\nConta de energia: R$" + consumoMedioEnergia, "Valor médio das contas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+            else
+            {
+                MessageBox.Show("Você deve selecionar uma linhar para fazer essa operação", "Operação Inválida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
         }
 
         private void getRowValue_Click(object sender, EventArgs e)
-        {            
-           
+        {
+
         }
     }
 }
