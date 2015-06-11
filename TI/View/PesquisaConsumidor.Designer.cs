@@ -32,6 +32,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.maiorConta = new System.Windows.Forms.Button();
             this.mediaGeral = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
@@ -57,6 +58,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.maiorConta);
             this.panel1.Controls.Add(this.mediaGeral);
             this.panel1.Controls.Add(this.pictureBox2);
             this.panel1.Controls.Add(this.radioButton2);
@@ -75,8 +77,20 @@
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
+            // maiorConta
+            // 
+            this.maiorConta.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.maiorConta.Location = new System.Drawing.Point(176, 503);
+            this.maiorConta.Name = "maiorConta";
+            this.maiorConta.Size = new System.Drawing.Size(116, 29);
+            this.maiorConta.TabIndex = 20;
+            this.maiorConta.Text = "Maior conta";
+            this.maiorConta.UseVisualStyleBackColor = true;
+            this.maiorConta.Click += new System.EventHandler(this.maiorConta_Click_1);
+            // 
             // mediaGeral
             // 
+            this.mediaGeral.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mediaGeral.Location = new System.Drawing.Point(298, 502);
             this.mediaGeral.Name = "mediaGeral";
             this.mediaGeral.Size = new System.Drawing.Size(116, 29);
@@ -184,7 +198,6 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.Empty;
             this.dataGridView.ShowCellErrors = false;
             this.dataGridView.Size = new System.Drawing.Size(848, 436);
             this.dataGridView.TabIndex = 1;
@@ -308,5 +321,6 @@
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Button mediaGeral;
+        private System.Windows.Forms.Button maiorConta;
     }
 }
