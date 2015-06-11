@@ -30,8 +30,8 @@ namespace TI
             p.Tipo = rbFisica.Checked ? "FISICA" : "JURIDICA";
 
             pessoaDataSource.add(p);
+            MessageBox.Show(null, txtNome.Text == "" ? "Cliente cadastrado com sucesso." : txtNome.Text + " cadastrado com sucesso.", "Cadastro concluído", MessageBoxButtons.OK, MessageBoxIcon.Information);
             button2_Click(null, null);
-            
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -49,19 +49,19 @@ namespace TI
             txtNome.Clear();
             txtCPF.Clear();
             txtCNPJ.Clear();
-            
+
         }
-        
+
         private void button4_Click(object sender, EventArgs e)
         {
 
-            
-     
 
-            
-            
+
+
+
+
         }
-        
+
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
@@ -78,11 +78,11 @@ namespace TI
             txtCPF.Clear();
             txtCNPJ.Show();
             txtCPF.Hide();
-         
-            lblTipoDoc.Text = "CNPJ";
-            
 
-            
+            lblTipoDoc.Text = "CNPJ";
+
+
+
         }
 
         private void rbFisica_CheckedChanged(object sender, EventArgs e)
@@ -92,24 +92,24 @@ namespace TI
             txtCNPJ.Hide();
             txtCNPJ.Clear();
             txtCPF.Show();
-       
+
             lblTipoDoc.Text = "CPF";
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            
+
 
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            
+
         }
 
-        
 
-        
+
+
 
 
         private void label5_Click(object sender, EventArgs e)

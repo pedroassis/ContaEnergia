@@ -20,9 +20,10 @@ namespace TI.View
             InitializeComponent();
         }
 
-		public IContaService getService(Conta conta){
-			return conta.TipoConta == "AGUA" ? aguaService : energiaService;
-		}
+        public IContaService getService(Conta conta)
+        {
+            return conta.TipoConta == "AGUA" ? aguaService : energiaService;
+        }
 
         private void label2_Click(object sender, EventArgs e)
         {
@@ -42,7 +43,7 @@ namespace TI.View
         private void rbJuridica_CheckedChanged(object sender, EventArgs e)
         {
             txtNome.Focus();
-            
+
         }
 
         private void rbFisica_CheckedChanged(object sender, EventArgs e)
@@ -64,22 +65,24 @@ namespace TI.View
 
         private void lancarValores_Load(object sender, EventArgs e)
         {
-            
+
         }
 
-		IContaService energiaService = new ContaEnergiaService();
-		IContaService aguaService = new ContaAguaService();
+        IContaService energiaService = new ContaEnergiaService();
+        IContaService aguaService = new ContaAguaService();
         private Strategy<Pessoa> pessoaDataSource = new DataSourceStrategy<Pessoa>();
         private Strategy<Conta> ContaDataSource = new DataSourceStrategy<Conta>();
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             button2_Click(null, null);
             Pessoa pessoa;
-            
-            try {
+
+            try
+            {
                 pessoa = pessoaDataSource.getById(int.Parse(id.Text));
             }
-            catch (Exception) {
+            catch (Exception)
+            {
                 return;
             }
 
@@ -90,7 +93,7 @@ namespace TI.View
                 txtNome.Text = pessoa.Nome;
                 txtTipo.Text = pessoa.Tipo;
                 List<Conta> contas = ContaDataSource.find("Consumidor", pessoa.Id)
-					.Where(cot => (tipoConta.Text == "Agua" ? "AGUA" : "ENERGIA") == cot.TipoConta).ToList();
+                    .Where(cot => (tipoConta.Text == "Agua" ? "AGUA" : "ENERGIA") == cot.TipoConta).ToList();
                 if (contas.Count != 0)
                 {
                     Conta contaAnterior = contas.Last();
@@ -109,26 +112,33 @@ namespace TI.View
         private Conta conta = new Conta();
         private void button5_Click(object sender, EventArgs e)
         {
-            conta.LeituraAtual = int.Parse(consumoAtual.Text);
+            if ((int.Parse(consumoAtual.Text) >= int.Parse(consumoAnterior.Text)))
+            {
+                conta.LeituraAtual = int.Parse(consumoAtual.Text);
+                conta.TipoConta = tipoConta.Text == "Agua" ? "AGUA" : "ENERGIA";
+                valorContaAtual.Text = getService(conta).getTotal(conta).ToString();
+            }
+            else
+            {
+                MessageBox.Show(null, "A leitura atual não pode ser menor do que a leitura anterior.", "Operação inválida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-            conta.TipoConta = tipoConta.Text == "Agua" ? "AGUA" : "ENERGIA";
 
-            valorContaAtual.Text = getService(conta).getTotal(conta).ToString();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (tipoConta.SelectedItem=="")
+            if (tipoConta.SelectedItem == "")
             {
                 MessageBox.Show("Tipo da conta é obrigatório.", "Ação inválida", MessageBoxButtons.OK);
                 return;
             }
 
-            
-            
-            
+
+
+
             List<Conta> lista = ContaDataSource.getAll();
-            conta.Id = lista.Count==0 ? 1 : lista.Last().Id + 1;
+            conta.Id = lista.Count == 0 ? 1 : lista.Last().Id + 1;
             conta.TipoConta = tipoConta.Text.ToUpper();
             ContaDataSource.add(conta);
             conta = new Conta();

@@ -199,6 +199,7 @@
             // valorContaAnterior
             // 
             this.valorContaAnterior.BackColor = System.Drawing.Color.LightGray;
+            this.valorContaAnterior.Enabled = false;
             this.valorContaAnterior.Location = new System.Drawing.Point(222, 138);
             this.valorContaAnterior.Name = "valorContaAnterior";
             this.valorContaAnterior.Size = new System.Drawing.Size(210, 26);
@@ -216,6 +217,7 @@
             // consumoAnterior
             // 
             this.consumoAnterior.BackColor = System.Drawing.Color.LightGray;
+            this.consumoAnterior.Enabled = false;
             this.consumoAnterior.Location = new System.Drawing.Point(6, 138);
             this.consumoAnterior.Name = "consumoAnterior";
             this.consumoAnterior.Size = new System.Drawing.Size(210, 26);
