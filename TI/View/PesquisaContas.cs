@@ -212,17 +212,14 @@ namespace TI.View
             updateSize();
             imported++;
             
-            
-
-
-			if (getPercentage () >= 100) {
+            if (getPercentage () >= 99) {
 
                 progressBar1.Invoke(new MethodInvoker(delegate { progressBar1.Visible = false; }));
 			} else {
 
                 progressBar1.Invoke(new MethodInvoker(delegate { 
                     progressBar1.Visible = true; 
-                    progressBar1.Value = getPercentage(); 
+                    progressBar1.Value = getPercentage();
                 }));
                 
 			}
@@ -263,6 +260,11 @@ namespace TI.View
         }
 
         private void progressBar1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }
