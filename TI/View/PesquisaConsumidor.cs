@@ -16,7 +16,7 @@ namespace TI.View
     public partial class PesquisaConsumidor : Form
     {
 
-        //TODO messageBox exibindo o resultado.
+
         //TODO Em que mês houve a conta de maior valor, em reais e em consumo?
 
         private Strategy<Pessoa> pessoaDataSource = new DataSourceStrategy<Pessoa>();
@@ -33,10 +33,6 @@ namespace TI.View
             dataGridView.Columns[1].Resizable = DataGridViewTriState.False;
             dataGridView.Columns[2].Resizable = DataGridViewTriState.False;
             dataGridView.Columns[3].Resizable = DataGridViewTriState.False;
-
-
-
-
             pessoaDataSource.getAll().OrderBy(pessoa => pessoa.Id).ToList().ForEach(pessoa => dataGridView.Rows.Add(new string[] { 
             pessoa.Id.ToString(), pessoa.Nome, pessoa.Tipo, pessoa.Documento }));
         }
@@ -158,11 +154,14 @@ namespace TI.View
             return somaConsumo == 0 ? 0 : somaConsumo / contas.Count;
         }
 
+
         private void mediaGeral_Click(object sender, EventArgs e)
         {
-            String idString = dataGridView.SelectedRows[0].Cells[0].Value.ToString();
-            if (idString != null)
+
+            if (dataGridView.SelectedRows.Count != 0)
             {
+                String idString = dataGridView.SelectedRows[0].Cells[0].Value.ToString();
+            
                 int id = int.Parse(idString);
                 List<Conta> contas = contaDataSource.find("Consumidor", id);
                 List<Conta> contasAgua = contas.Where(conta => conta.TipoConta == "AGUA").ToList();
@@ -183,9 +182,74 @@ namespace TI.View
 
         }
 
+        private double maisCara(List<Conta> contas)
+        {
+            contas = contas.OrderBy(c => getService(c).getConsumo(c)).ToList();
+            return contas.Count == 0 ? 0 : getService(contas.Last()).getTotal(contas.Last());
+        }
+
+        private double maiorConsumo(List<Conta> contas)
+        {
+            contas = contas.OrderBy(c => getService(c).getConsumo(c)).ToList();
+            return contas.Count == 0 ? 0 : getService(contas.Last()).getConsumo(contas.Last());
+        }
+        
+        private void maiorConta_Click(object sender, EventArgs e)
+        {
+
+            
+            
+            
+            
+            
+            
+            
+        
+        
+            
+            
+        
+        
+            
+        
+            
+            
+            
+            
+            
+        }
+
+
+        //metodo não continuado
         private void getRowValue_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void maiorConta_Click_1(object sender, EventArgs e)
+        {
+            if (dataGridView.SelectedRows.Count != 0)
+            {
+                String idString = dataGridView.SelectedRows[0].Cells[0].Value.ToString();
+
+                int id = int.Parse(idString);
+                List<Conta> contas = contaDataSource.find("Consumidor", id);
+                List<Conta> contasAgua = contas.Where(conta => conta.TipoConta == "AGUA").ToList();
+                List<Conta> contasEnergia = contas.Where(conta => conta.TipoConta == "ENERGIA").ToList();
+
+                double valorEnergia = maisCara(contasEnergia);
+                double consumoAgua = maiorConsumo(contasAgua);
+                double valorAgua = maisCara(contasAgua);
+                double consumoEnergia = maiorConsumo(contasEnergia);
+
+
+                MessageBox.Show(null, "Conta de água: R$" + valorAgua + " Consumo de água: " + consumoAgua + "m³ \nConta de energia: R$" + valorEnergia + " Consumo de energia: " + consumoEnergia + "KW/h", "Maior valores", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+            else
+            {
+                MessageBox.Show("Você deve selecionar uma linhar para fazer essa operação", "Operação Inválida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
